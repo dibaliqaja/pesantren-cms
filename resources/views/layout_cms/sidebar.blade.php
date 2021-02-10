@@ -13,6 +13,11 @@
                     <i class="fas fa-users"></i><span>Data Santri</span>
                 </a>
             </li>
+            <li class="{{ (request()->routeIs('buku-kas*')) ? 'active' : '' }}">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-book-open"></i><span>Buku Kas</span>
+                </a>
+            </li>
             {{-- <li class="{{ (request()->routeIs('students*')) ? 'active' : '' }}">
                 <a href="{{ route('students.index') }}" class="nav-link">
                     <i class="fas fa-user"></i><span>Students</span>

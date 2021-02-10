@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CashBookController;
 use App\Http\Controllers\SantriController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::resource('santri', SantriController::class);
+Route::resource('buku-kas', CashBookController::class);
