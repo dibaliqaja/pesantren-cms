@@ -144,11 +144,33 @@ class SantriController extends Controller
      */
     public function update(SantriRequest $request, $id)
     {
-        // $santri = Santri::findOrFail($id);
-        // $santri->update($request->validated());
+        try {
+            if ($request->validator->fails()) {
+                return response()->json([
+                    'message'       => 'Validation Error',
+                    'status'        => 'error',
+                    'data'          => $request->validator->errors(),
+                ], 400);
+            }
 
-        // return redirect()->route('santri.index')
-        //     ->with('alert', 'Santri berhasil diupdate.');
+            $data = $request->validated();
+            $santri = Santri::findOrFail($id);
+            $santri->update($data);
+
+            $response = [
+                'message'       => 'Data Santri Update Successfully',
+                'status'        => 'success',
+                'data'          => $santri,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message'       => 'Not Found',
+                'status'        => 'error',
+                'data'          => null
+            ]);
+        }
     }
 
     /**
@@ -159,10 +181,22 @@ class SantriController extends Controller
      */
     public function destroy($id)
     {
-        // $santri = Santri::findOrFail($id);
-        // $santri->delete();
+        try {
+            $santri = Santri::findOrFail($id);
+            $santri->delete();
 
-        // return redirect()->route('santri.index')
-        //     ->with('alert','Data Santri berhasil dihapus.');
+            $response = [
+                'message'       => 'Data Santri Delete Successfully',
+                'status'        => 'success',
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message'       => 'Not Found',
+                'status'        => 'error',
+                'data'          => null
+            ]);
+        }
     }
 }
