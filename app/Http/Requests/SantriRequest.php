@@ -3,9 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use \Illuminate\Contracts\Validation\Validator;
 
 class SantriRequest extends FormRequest
 {
+    public $validator = null;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,21 +28,25 @@ class SantriRequest extends FormRequest
     {
         return [
             // 'santri_number'                 => 'required|string|unique:posts,title,'.$this->post.'|min:5',
-            'santri_number'                 => 'required|string|min:5',
-            'santri_name'                   => 'required|string|min:5',
-            'santri_address'                => 'required|string|min:5',
-            'santri_birth_place'            => 'required|string|min:5',
-            'santri_birth_date'             => 'required|date',
-            'santri_phone'                  => 'required|string',
-            'santri_school_old'             => 'required|string',
-            'santri_school_address_old'     => 'required|string',
-            'santri_school_current'         => 'required|string',
-            'santri_school_address_current' => 'required|string',
-            'santri_father_name'            => 'required|string',
-            'santri_mother_name'            => 'required|string',
-            'santri_father_job'             => 'required|string',
-            'santri_mother_job'             => 'required|string',
-            'santri_parent_phone'           => 'required|string',
+            'name'                   => 'required|string|min:5',
+            'address'                => 'required|string|min:5',
+            'birth_place'            => 'required|string|min:5',
+            'birth_date'             => 'required|date',
+            'phone'                  => 'required|string|unique:santris,phone,'.$this->santri,
+            'school_old'             => 'required|string',
+            'school_address_old'     => 'required|string',
+            'school_current'         => 'required|string',
+            'school_address_current' => 'required|string',
+            'father_name'            => 'required|string',
+            'mother_name'            => 'required|string',
+            'father_job'             => 'required|string',
+            'mother_job'             => 'required|string',
+            'parent_phone'           => 'required|string',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $this->validator = $validator;
     }
 }

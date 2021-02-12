@@ -18,7 +18,7 @@ class SantriController extends Controller
         $data       = Santri::latest()->paginate(10);
         $keyword    = $request->keyword;
         if ($keyword)
-            $data   = Santri::where('santri_name', 'LIKE', "%$keyword%")
+            $data   = Santri::where('name', 'LIKE', "%$keyword%")
                 ->latest()
                 ->paginate(10);
 
@@ -32,12 +32,12 @@ class SantriController extends Controller
      */
     public function create()
     {
-        $year = date('Y');
-        $new_year = substr($year, -2);
-        $data_santri = Santri::count();
+        // $year = date('Y');
+        // $new_year = substr($year, -2);
+        // $data_santri = Santri::count();
         // dd($data_santri+5);
-        $nis = $new_year.$new_year+1..'.000'.$data_santri+1;
-        return view('santri.create', compact('nis'));
+        // $nis = $new_year.$new_year+1..'.000'.$data_santri+1;
+        return view('santri.create');
     }
 
     /**

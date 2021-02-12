@@ -12,4 +12,14 @@ class CashBook extends Model
     use UsesUuid;
 
     protected $fillable = ['date', 'note', 'debit', 'credit'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'debit'     => 'decimal',
+        'credit'    => 'decimal'
+    ];
 }

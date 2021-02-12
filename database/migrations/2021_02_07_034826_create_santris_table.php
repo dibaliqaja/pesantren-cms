@@ -15,21 +15,21 @@ class CreateSantrisTable extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('santri_number');
-            $table->string('santri_name');
-            $table->text('santri_address');
-            $table->string('santri_birth_place');
-            $table->date('santri_birth_date');
-            $table->string('santri_phone');
-            $table->string('santri_school_old');
-            $table->text('santri_school_address_old');
-            $table->string('santri_school_current');
-            $table->text('santri_school_address_current');
-            $table->string('santri_father_name');
-            $table->string('santri_mother_name');
-            $table->string('santri_father_job');
-            $table->string('santri_mother_job');
-            $table->string('santri_parent_phone');
+            // $table->string('santri_number');
+            $table->string('name');
+            $table->text('address');
+            $table->string('birth_place');
+            $table->date('birth_date');
+            $table->string('phone');
+            $table->string('school_old');
+            $table->text('school_address_old');
+            $table->string('school_current');
+            $table->text('school_address_current');
+            $table->string('father_name');
+            $table->string('mother_name');
+            $table->string('father_job');
+            $table->string('mother_job');
+            $table->string('parent_phone');
             $table->timestamps();
         });
     }

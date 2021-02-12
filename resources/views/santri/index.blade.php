@@ -33,7 +33,7 @@
             <thead>
                 <tr align="center">
                     <th width="5%">No</th>
-                    <th>NIS</th>
+                    {{-- <th>NIS</th> --}}
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No. HP</th>
@@ -44,10 +44,10 @@
                 @forelse ($data as $santri => $result)
                     <tr>
                         <td>{{ $santri + $data->firstitem() }}</td>
-                        <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->santri_number }}</a></td>
-                        <td>{{ $result->santri_name }}</td>
-                        <td>{{ $result->santri_address }}</td>
-                        <td>{{ $result->santri_phone }}</td>
+                        {{-- <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->santri_number }}</a></td> --}}
+                        <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->name }}</a></td>
+                        <td>{{ $result->address }}</td>
+                        <td>{{ $result->phone }}</td>
                         <td align="center">
                             <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
                             <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" data-id={{ $result->id }} onclick="deleteData()" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
