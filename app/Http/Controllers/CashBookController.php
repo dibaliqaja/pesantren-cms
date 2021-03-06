@@ -7,6 +7,9 @@ use App\Models\CashBook;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 class CashBookController extends Controller
 {
     /**
@@ -17,29 +20,18 @@ class CashBookController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = CashBook::latest();
+            $data = CashBook::orderBy('date', 'DESC')->orderBy('created_at', 'DESC');
             return DataTables::of($data)
                     ->addIndexColumn()
-                    // ->addColumn('action', function($row){
-                    //     $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm editMajor"><i class="fas fa-pen"></i></a>';
-                    //     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteMajor"><i class="fas fa-trash"></i></a>';
-                    //     return $btn;
-                    // })
-                    // ->rawColumns(['action'])
+                    ->addColumn('action', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteCash"><i class="fas fa-trash"></i></a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
                     ->make(true);
         }
 
         return view('cash_book.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -48,51 +40,45 @@ class CashBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CashBookRequest $request)
+    public function store(Request $request)
     {
-        $cash_book = new CashBook;
-        $cash_book->create($request->validated());
+        $request->validate([
+            'date'      => 'required|date',
+            'note'      => 'required|string'
+        ]);
 
-        return redirect()->route('cash_book.index')
-            ->with('alert', 'Data baru berhasil ditambahkan.');
-    }
+        $total = CashBook::latest()->first();
+        // $total = $total == null ? $total['total'] = 0 : $total;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if ($request->credit == null) {
+            $data = CashBook::create([
+                'date' => $request->date,
+                'note' => $request->note,
+                'debit' => $request->debit,
+                'credit' => 0,
+                'total' => $total['total']+$request->debit
+            ]);
+        } else if ($request->debit == null) {
+            $data = CashBook::create([
+                'date' => $request->date,
+                'note' => $request->note,
+                'debit' => 0,
+                'credit' => $request->credit,
+                'total' => $total['total']-$request->credit
+            ]);
+        } else {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Request debit or credit isNull',
+                'data' => null
+            ], 400);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CashBookRequest $request, $id)
-    {
-        $cash_book = CashBook::findOrFail($id);
-        $cash_book->update($request->validated());
-
-        return redirect()->route('cash_book.index')
-            ->with('alert', 'Data berhasil diupdate.');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data input successfully',
+            'data' => $data
+        ], 200);
     }
 
     /**
@@ -103,6 +89,6 @@ class CashBookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CashBook::findOrFail($id)->delete();
     }
 }

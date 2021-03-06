@@ -61,5 +61,13 @@
         <label for="parent_phone">No. HP Orang Tua Santri</label>
         <input type="tel" class="form-control" name="parent_phone" value="{{ $santri->parent_phone }}" disabled>
     </div>
+    <div class="form-group">
+        <label for="entry_year">Tahun Masuk</label>
+        <input type="text" class="form-control" name="entry_year" value="{{ $santri->entry_year }}" disabled>
+    </div>
+    <div class="form-group">
+        <label for="year_out">Tahun Keluar</label>
+        <input type="text" class="form-control" name="year_out" value="{{ $santri->year_out }}" disabled>
+    </div>
 
 @endsection

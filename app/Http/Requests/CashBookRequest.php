@@ -26,8 +26,8 @@ class CashBookRequest extends FormRequest
         return [
             'date'              => 'required|date',
             'note'              => 'required|string',
-            'debit'             => 'required',
-            'credit'            => 'required',
+            'debit'             => 'numeric',
+            'credit'            => 'numeric',
         ];
     }
 }

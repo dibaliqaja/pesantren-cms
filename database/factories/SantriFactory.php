@@ -39,6 +39,8 @@ class SantriFactory extends Factory
             'father_job'             => 'Petani',
             'mother_job'             => 'Ibu Rumah Tangga',
             'parent_phone'           => $this->faker->unique()->phoneNumber,
+            'entry_year'             => '2017',
+            'year_out'               => '2021'
         ];
     }
 }

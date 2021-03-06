@@ -17,9 +17,9 @@ class CreateCashBooksTable extends Migration
             $table->uuid('id')->primary();
             $table->date('date');
             $table->text('note');
-            $table->decimal('debit', 13, 2);
-            $table->decimal('credit', 13, 2);
-            $table->decimal('total', 13, 2);
+            $table->decimal('debit', 13, 2)->default(0);
+            $table->decimal('credit', 13, 2)->default(0);
+            $table->decimal('total', 13, 2)->default(0);
             $table->timestamps();
         });
     }

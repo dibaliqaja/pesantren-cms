@@ -11,7 +11,7 @@ class CashBook extends Model
     use HasFactory;
     use UsesUuid;
 
-    protected $fillable = ['date', 'note', 'debit', 'credit'];
+    protected $fillable = ['date', 'note', 'debit', 'credit', 'total'];
 
     /**
      * The attributes that should be cast to native types.
@@ -19,7 +19,8 @@ class CashBook extends Model
      * @var array
      */
     protected $casts = [
-        'debit'     => 'decimal',
-        'credit'    => 'decimal'
+        'debit'     => 'decimal:2',
+        'credit'    => 'decimal:2',
+        'total'     => 'decimal:2'
     ];
 }

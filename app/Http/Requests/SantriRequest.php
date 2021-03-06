@@ -42,6 +42,8 @@ class SantriRequest extends FormRequest
             'father_job'             => 'required|string',
             'mother_job'             => 'required|string',
             'parent_phone'           => 'required|string',
+            'entry_year'             => 'required|string|digits:4',
+            'year_out'               => 'string|digits:4',
         ];
     }
 

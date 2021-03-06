@@ -146,6 +146,26 @@
             @enderror
         </div>
         <div class="form-group">
+            <label for="entry_year">Tahun Masuk</label>
+            <input type="tel" class="form-control @error('entry_year') is-invalid @enderror" name="entry_year" value="{{ old('entry_year') }}">
+
+            @error('entry_year')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label for="year_out">Tahun Keluar</label>
+            <input type="tel" class="form-control @error('year_out') is-invalid @enderror" name="year_out" value="{{ old('year_out') }}">
+
+            @error('year_out')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
             <button class="btn btn-primary">Update</button>
             <a href="{{ route('santri.index') }}" class="btn btn-secondary">Kembali</a>
         </div>

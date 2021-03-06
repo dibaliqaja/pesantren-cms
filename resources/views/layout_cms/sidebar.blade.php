@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="#" target="_blank">Pondok App</a>
+            <a href="#" target="_blank">Ponpes App</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="#" target="_blank">PA</a>
@@ -13,9 +13,38 @@
                     <i class="fas fa-users"></i><span>Data Santri</span>
                 </a>
             </li>
+            <li class="menu-header">Keuangan</li>
             <li class="{{ (request()->routeIs('buku-kas*')) ? 'active' : '' }}">
                 <a href="{{ route('buku-kas.index') }}" class="nav-link">
                     <i class="fas fa-book-open"></i><span>Buku Kas</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-file-invoice"></i><span>Syahriah (SPP)</span>
+                </a>
+            </li>
+            <li class="menu-header">Administrasi</li>
+            <li class="">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-envelope"></i><span>Surat Masuk</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-envelope-open-text"></i><span>Surat Keluar</span>
+                </a>
+            </li>
+            <li class="menu-header">User</li>
+            <li class="">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-user-cog"></i><span>Data Pengguna</span>
+                </a>
+            </li>
+            <li class="menu-header">Logs</li>
+            <li class="">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+                    <i class="fas fa-history"></i><span>Log Aktivitas</span>
                 </a>
             </li>
             {{-- <li class="{{ (request()->routeIs('students*')) ? 'active' : '' }}">
