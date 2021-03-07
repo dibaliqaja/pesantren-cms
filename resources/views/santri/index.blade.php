@@ -1,4 +1,4 @@
-@extends('layout_cms.home')
+@extends('layout-cms.home')
 @section('title_page','Data Santri')
 @section('content')
 
@@ -50,7 +50,7 @@
                         <td>{{ $result->phone }}</td>
                         <td align="center">
                             <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" data-id={{ $result->id }} onclick="deleteData()" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
+                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 @empty
@@ -99,8 +99,7 @@
 
 @section('script')
     <script>
-        function deleteData() {
-            let id  = $('#btn-delete').attr("data-id");
+        function deleteData(id) {
             let url = '{{ route("santri.destroy", ":id") }}';
             url     = url.replace(':id', id);
             $("#deleteForm").attr('action', url);

@@ -89,7 +89,7 @@
                 </ul>
             </nav>
 
-            @include('layout_cms.sidebar')
+            @include('layout-cms.sidebar')
 
             <!-- Main Content -->
             <div class="main-content">
@@ -109,4 +109,4 @@
             </div>
             <!-- End Main Content -->
 
-            @include('layout_cms.footer')
+            @include('layout-cms.footer')

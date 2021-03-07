@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; 2021 <div class="bullet"></div> Pondok App | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+        Copyright &copy; 2021 <div class="bullet"></div> Ponpes App | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
     </div>
 </footer>
 </div>

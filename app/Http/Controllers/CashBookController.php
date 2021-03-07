@@ -31,7 +31,7 @@ class CashBookController extends Controller
                     ->make(true);
         }
 
-        return view('cash_book.index');
+        return view('cash-book.index');
     }
 
     /**
@@ -44,7 +44,9 @@ class CashBookController extends Controller
     {
         $request->validate([
             'date'      => 'required|date',
-            'note'      => 'required|string'
+            'note'      => 'required|string',
+            'debit'     => 'required|number',
+            'credit'    => 'required|number'
         ]);
 
         $total = CashBook::latest()->first();
@@ -55,14 +57,14 @@ class CashBookController extends Controller
                 'date' => $request->date,
                 'note' => $request->note,
                 'debit' => $request->debit,
-                'credit' => 0,
+                'credit' => $request->credit,
                 'total' => $total['total']+$request->debit
             ]);
         } else if ($request->debit == null) {
             $data = CashBook::create([
                 'date' => $request->date,
                 'note' => $request->note,
-                'debit' => 0,
+                'debit' => $request->debit,
                 'credit' => $request->credit,
                 'total' => $total['total']-$request->credit
             ]);

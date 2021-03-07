@@ -25,8 +25,8 @@
                 </a>
             </li>
             <li class="menu-header">Administrasi</li>
-            <li class="">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('surat-masuk*')) ? 'active' : '' }}">
+                <a href="{{ route('surat-masuk.index') }}" class="nav-link">
                     <i class="fas fa-envelope"></i><span>Surat Masuk</span>
                 </a>
             </li>

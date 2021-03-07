@@ -1,4 +1,4 @@
-@extends('layout_cms.home')
+@extends('layout-cms.home')
 @section('title_page','Tambah Data Santri')
 @section('content')
 

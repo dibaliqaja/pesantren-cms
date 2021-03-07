@@ -1,4 +1,4 @@
-@extends('layout_cms.home')
+@extends('layout-cms.home')
 @section('title_page','Buku Kas')
 @section('content')
 
@@ -19,7 +19,7 @@
     </div>
 
     <div class="table-responsive">
-        <table id="cash-table" class="table table-hover table-bordered">
+        <table id="cash-table" role="grid" class="dataTable table table-hover table-bordered">
             <thead>
                 <tr align="center">
                     <th width="5%">No</th>
@@ -126,7 +126,7 @@
                 $('#noteError').text('');
                 $('#debitError').text('');
                 $('#debit-form').show();
-                $('#credit-form').hide();
+                $('#credit-form').val(0).hide();
                 $('#ajaxModel').modal('show');
             });
 
@@ -138,7 +138,7 @@
                 $('#dateError').text('');
                 $('#noteError').text('');
                 $('#creditError').text('');
-                $('#debit-form').hide();
+                $('#debit-form').val(0).hide();
                 $('#credit-form').show();
                 $('#ajaxModel').modal('show');
             });
