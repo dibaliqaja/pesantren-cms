@@ -19,6 +19,8 @@ class SantriController extends Controller
         $keyword    = $request->keyword;
         if ($keyword)
             $data   = Santri::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('address', 'LIKE', "%$keyword%")
+                ->orWhere('phone', 'LIKE', "%$keyword%")
                 ->latest()
                 ->paginate(10);
 

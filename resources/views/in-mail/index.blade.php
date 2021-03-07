@@ -18,7 +18,7 @@
         <div class="col-md-4">
             <form action="#" class="flex-sm">
                 <div class="input-group">
-                    <input type="text" name="keyword" class="form-control" placeholder="Cari berdasarkan keterangan" value="{{ Request::get('keyword') }}">
+                    <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
                     <div class="input-group-append">
                         <button class="btn btn-primary mr-2 rounded-right" type="submit"><i class="fas fa-search"></i></button>
                         <button onclick="window.location.href='{{ route('surat-masuk.index') }}'" type="button" class="btn btn-md btn-secondary rounded"><i class="fas fa-sync-alt"></i></button>
@@ -132,7 +132,7 @@
             url     = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }
-        
+
         function formSubmit() {
             $("#deleteForm").submit();
         }

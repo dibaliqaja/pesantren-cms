@@ -19,7 +19,11 @@ class InMailController extends Controller
         $data       = InMail::latest()->paginate(10);
         $keyword    = $request->keyword;
         if ($keyword)
-            $data   = InMail::where('note', 'LIKE', "%$keyword%")
+            $data   = InMail::where('mail_number', 'LIKE', "%$keyword%")
+                ->orWhere('mail_date', 'LIKE', "%$keyword%")
+                ->orWhere('note', 'LIKE', "%$keyword%")
+                ->orWhere('sender', 'LIKE', "%$keyword%")
+                ->orWhere('recipient', 'LIKE', "%$keyword%")
                 ->latest()
                 ->paginate(10);
 
