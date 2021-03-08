@@ -30,8 +30,8 @@
                     <i class="fas fa-envelope"></i><span>Surat Masuk</span>
                 </a>
             </li>
-            <li class="">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('surat-keluar*')) ? 'active' : '' }}">
+                <a href="{{ route('surat-keluar.index') }}" class="nav-link">
                     <i class="fas fa-envelope-open-text"></i><span>Surat Keluar</span>
                 </a>
             </li>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CashBookController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\InMailController;
+use App\Http\Controllers\OutMailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,4 @@ Route::get('/', function () {
 Route::resource('santri', SantriController::class);
 Route::resource('buku-kas', CashBookController::class);
 Route::resource('surat-masuk', InMailController::class);
+Route::resource('surat-keluar', OutMailController::class);
