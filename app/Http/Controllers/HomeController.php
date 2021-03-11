@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function($request, $next){
+            if(Gate::allows('admin')) return $next($request);
+
+            abort(403, 'Sorry, you are not allowed to access this page');
+        });
     }
 
     /**

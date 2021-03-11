@@ -7,9 +7,24 @@ use App\Models\Santri;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('admin')) return $next($request);
+
+            abort(403, 'Sorry, you are not allowed to access this page');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

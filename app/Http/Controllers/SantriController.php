@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SantriRequest;
 use App\Models\Santri;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
 class SantriController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('admin')) return $next($request);
+
+            abort(403, 'Sorry, you are not allowed to access this page');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

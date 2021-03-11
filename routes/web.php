@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('home');
 });
-
-Route::resource('santri', SantriController::class);
-Route::resource('buku-kas', CashBookController::class);
-Route::resource('surat-masuk', InMailController::class);
-Route::resource('surat-keluar', OutMailController::class);
-Route::resource('pengguna', UserController::class);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('santri', SantriController::class);
+    Route::resource('buku-kas', CashBookController::class);
+    Route::resource('surat-masuk', InMailController::class);
+    Route::resource('surat-keluar', OutMailController::class);
+    Route::resource('pengguna', UserController::class);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});

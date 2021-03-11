@@ -6,9 +6,24 @@ use App\Http\Requests\InMailRequest;
 use App\Models\InMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class InMailController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('admin')) return $next($request);
+
+            abort(403, 'Sorry, you are not allowed to access this page');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
