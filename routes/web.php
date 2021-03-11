@@ -25,9 +25,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('password', [App\Http\Controllers\PasswordController::class, 'change'])->name('change.password');
     Route::patch('password', [App\Http\Controllers\PasswordController::class, 'update'])->name('update.password');
+    Route::get('activity-log', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity.index');
 
     Route::resource('santri', SantriController::class);
     Route::resource('buku-kas', CashBookController::class);

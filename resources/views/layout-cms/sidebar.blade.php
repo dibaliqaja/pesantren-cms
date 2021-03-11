@@ -47,8 +47,8 @@
                 </a>
             </li>
             <li class="menu-header">Logs</li>
-            <li class="">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('activity.index')) ? 'active' : '' }}">
+                <a href="{{ route('activity.index') }}" class="nav-link">
                     <i class="fas fa-history"></i><span>Log Aktivitas</span>
                 </a>
             </li>

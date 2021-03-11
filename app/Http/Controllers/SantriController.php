@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLog;
 use App\Http\Requests\SantriRequest;
 use App\Models\Santri;
 use Illuminate\Support\Facades\Gate;
@@ -68,6 +69,7 @@ class SantriController extends Controller
         $santri = new Santri;
         $santri->create($request->validated());
 
+        ActivityLog::addToLog('Santri Added');
         return redirect()->route('santri.index')
             ->with('alert', 'Santri baru berhasil ditambahkan.');
     }
@@ -106,6 +108,7 @@ class SantriController extends Controller
         $santri = Santri::findOrFail($id);
         $santri->update($request->validated());
 
+        ActivityLog::addToLog('Santri Updated');
         return redirect()->route('santri.index')
             ->with('alert', 'Santri berhasil diupdate.');
     }
@@ -121,6 +124,7 @@ class SantriController extends Controller
         $santri = Santri::findOrFail($id);
         $santri->delete();
 
+        ActivityLog::addToLog('Santri Deleted');
         return redirect()->route('santri.index')
             ->with('alert','Data Santri berhasil dihapus.');
     }
