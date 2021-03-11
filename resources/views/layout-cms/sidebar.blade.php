@@ -8,6 +8,11 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>
+            <li class="{{ (request()->routeIs('home*')) ? 'active' : '' }}">
+                <a href="{{ route('home') }}" class="nav-link">
+                    <i class="fas fa-home"></i><span>Home</span>
+                </a>
+            </li>
             <li class="{{ (request()->routeIs('santri*')) ? 'active' : '' }}">
                 <a href="{{ route('santri.index') }}" class="nav-link">
                     <i class="fas fa-users"></i><span>Data Santri</span>
@@ -36,8 +41,8 @@
                 </a>
             </li>
             <li class="menu-header">User</li>
-            <li class="">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('pengguna*')) ? 'active' : '' }}">
+                <a href="{{ route('pengguna.index') }}" class="nav-link">
                     <i class="fas fa-user-cog"></i><span>Data Pengguna</span>
                 </a>
             </li>

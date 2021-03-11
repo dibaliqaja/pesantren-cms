@@ -147,7 +147,7 @@
         </div>
         <div class="form-group">
             <label for="entry_year">Tahun Masuk</label>
-            <input type="tel" class="form-control @error('entry_year') is-invalid @enderror" name="entry_year" value="{{ old('entry_year') }}">
+            <input type="text" class="form-control @error('entry_year') is-invalid @enderror" name="entry_year" value="{{ old('entry_year', $santri->entry_year) }}">
 
             @error('entry_year')
                 <span class="invalid-feedback" role="alert">
@@ -157,7 +157,7 @@
         </div>
         <div class="form-group">
             <label for="year_out">Tahun Keluar</label>
-            <input type="tel" class="form-control @error('year_out') is-invalid @enderror" name="year_out" value="{{ old('year_out') }}">
+            <input type="text" class="form-control @error('year_out') is-invalid @enderror" name="year_out" value="{{ old('year_out', $santri->year_out) }}">
 
             @error('year_out')
                 <span class="invalid-feedback" role="alert">

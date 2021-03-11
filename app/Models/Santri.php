@@ -12,4 +12,9 @@ class Santri extends Model
     use UsesUuid;
 
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->hasOne(User::class);
+    }
 }

@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\UserRequest;
+use App\Models\Santri;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $data       = User::with('santris')->latest()->paginate(10);
+        $keyword    = $request->keyword;
+        if ($keyword)
+            $data   = User::with('santris')
+                ->where('email', 'LIKE', "%$keyword%")
+                ->orWhere('role', 'LIKE', "%$keyword%")
+                ->orWhereHas('santris', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%$keyword%");
+                })
+                ->latest()
+                ->paginate(10);
+
+        return view('user.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data = Santri::all();
+        return view('user.create', compact('data'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UserRequest $request)
+    {
+        $user = new User;
+        $validatedData              = $request->validated();
+        $validatedData['password']  = Hash::make($request->password);
+        $user->create($validatedData);
+
+        return redirect()->route('pengguna.index')
+            ->with('alert', 'Pengguna baru berhasil ditambahkan.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Santri::all();
+        $user = $user = User::findOrFail($id);
+        return view('user.edit', compact('user', 'data'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $validatedData              = $request->validated();
+        $validatedData['password']  = Hash::make($request->password);
+        $user->update($validatedData);
+
+        return redirect()->route('pengguna.index')
+            ->with('alert', 'Pengguna berhasil diupdate.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('pengguna.index')
+            ->with('alert','Pengguna berhasil dihapus.');
+    }
+}
