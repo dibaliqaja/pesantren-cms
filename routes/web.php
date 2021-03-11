@@ -25,10 +25,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('password', [App\Http\Controllers\PasswordController::class, 'change'])->name('change.password');
+    Route::patch('password', [App\Http\Controllers\PasswordController::class, 'update'])->name('update.password');
+
     Route::resource('santri', SantriController::class);
     Route::resource('buku-kas', CashBookController::class);
     Route::resource('surat-masuk', InMailController::class);
     Route::resource('surat-keluar', OutMailController::class);
     Route::resource('pengguna', UserController::class);
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
