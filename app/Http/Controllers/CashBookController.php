@@ -9,9 +9,24 @@ use Yajra\DataTables\Facades\DataTables;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Gate;
 
 class CashBookController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            if(Gate::allows('admin')) return $next($request);
+
+            abort(403, 'Sorry, you are not allowed to access this page');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

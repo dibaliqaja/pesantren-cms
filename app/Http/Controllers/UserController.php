@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-     /**
+    /**
      * Create a new controller instance.
      *
      * @return void

@@ -9,26 +9,26 @@
             <thead>
                 <tr align="center">
                     <th width="5%">No</th>
+                    <th>Date & Time</th>
                     <th>Subject</th>
                     <th>URL</th>
                     <th>Method</th>
                     {{-- <th>IP</th>
                     <th>User Agent</th> --}}
-                    <th>Created at</th>
                     <th>Email</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($data as $log => $result)
-                    <tr>
+                    <tr align="center">
                         <td>{{ $log + $data->firstitem()  }}</td>
+                        <td>{{ $result->created_at }} - {{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</td>
                         <td>{{ $result->subject }}</td>
                         <td class="text-success">{{ $result->url }}</td>
                         <td><label class="badge badge-info">{{ $result->method }}</label></td>
                         {{-- <td class="text-warning">{{ $result->ip }}</td>
                         <td class="text-danger">{{ $result->agent }}</td> --}}
-                        <td>{{ $result->created_at }}</td>
-                        <td>{{ $result->name }}</td>
+                        <td>{{ $result->email }}</td>
                     </tr>
                 @empty
                     <tr>
