@@ -10,7 +10,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Santri</h4>
+                    <h4>Total Banyak Santri</h4>
                 </div>
                 <div class="card-body">
                     {{ DB::table('santris')->count() }}
@@ -44,6 +44,66 @@
                 </div>
                 <div class="card-body">
                     {{ DB::table('out_mails')->count() }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-info">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Transaksi Kas</h4>
+                </div>
+                <div class="card-body">
+                    1500
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-2">
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Pemasukan Kas</h4>
+                </div>
+                <div class="card-body">
+                    Rp. 100.000,-
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-2">
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Pengeluaran Kas</h4>
+                </div>
+                <div class="card-body">
+                    Rp. 100.000,-
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-2">
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Saldo Kas</h4>
+                </div>
+                <div class="card-body">
+                    Rp. 100.000,-
                 </div>
             </div>
         </div>

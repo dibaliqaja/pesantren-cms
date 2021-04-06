@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLog;
 use App\Http\Requests\CashBookRequest;
 use App\Models\CashBook;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 use Illuminate\Support\Facades\Gate;
 
 class CashBookController extends Controller
@@ -34,19 +32,27 @@ class CashBookController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = CashBook::orderBy('date', 'DESC')->orderBy('created_at', 'DESC');
-            return DataTables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteCash"><i class="fas fa-trash"></i></a>';
-                        return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-        }
+        $data       = CashBook::orderBy('date', 'DESC')->orderBy('created_at', 'DESC')->paginate(10);
+        $keyword    = $request->keyword;
+        if ($keyword)
+            $data   = CashBook::where('date', 'LIKE', "%$keyword%")
+                ->orWhere('note', 'LIKE', "%$keyword%")
+                ->orWhere('debit', 'LIKE', "%$keyword%")
+                ->orWhere('credit', 'LIKE', "%$keyword%")
+                ->latest()
+                ->paginate(10);
 
-        return view('cash-book.index');
+        return view('cash-book.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createDebit()
+    {
+        return view('cash-book.debit');
     }
 
     /**
@@ -55,47 +61,50 @@ class CashBookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeDebit(Request $request)
     {
-        $request->validate([
-            'date'      => 'required|date',
-            'note'      => 'required|string',
-            'debit'     => 'required|number',
-            'credit'    => 'required|number'
+        $this->validate($request, [
+            'date' => 'required|date',
+            'note' => 'required|string',
+            'debit' => 'required|numeric|min:0'
         ]);
 
-        $total = CashBook::latest()->first();
-        // $total = $total == null ? $total['total'] = 0 : $total;
+        CashBook::create($request->all());
 
-        if ($request->credit == null) {
-            $data = CashBook::create([
-                'date' => $request->date,
-                'note' => $request->note,
-                'debit' => $request->debit,
-                'credit' => $request->credit,
-                'total' => $total['total']+$request->debit
-            ]);
-        } else if ($request->debit == null) {
-            $data = CashBook::create([
-                'date' => $request->date,
-                'note' => $request->note,
-                'debit' => $request->debit,
-                'credit' => $request->credit,
-                'total' => $total['total']-$request->credit
-            ]);
-        } else {
-            return response()->json([
-                'status' => 400,
-                'message' => 'Request debit or credit isNull',
-                'data' => null
-            ], 400);
-        }
+        ActivityLog::addToLog('Cash Debit Added');
+        return redirect()->route('buku-kas.index')
+            ->with('alert', 'Debit berhasil ditambahkan.');
+    }
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data input successfully',
-            'data' => $data
-        ], 200);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createCredit()
+    {
+        return view('cash-book.credit');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeCredit(Request $request)
+    {
+        $this->validate($request, [
+            'date' => 'required|date',
+            'note' => 'required|string',
+            'credit' => 'required|numeric|min:0'
+        ]);
+
+        CashBook::create($request->all());
+
+        ActivityLog::addToLog('Cash Credit Added');
+        return redirect()->route('buku-kas.index')
+            ->with('alert', 'Kredit berhasil ditambahkan.');
     }
 
     /**
@@ -106,6 +115,11 @@ class CashBookController extends Controller
      */
     public function destroy($id)
     {
-        CashBook::findOrFail($id)->delete();
+        $cash = CashBook::findOrFail($id);
+        $cash->delete();
+
+        ActivityLog::addToLog('Data Kas Deleted ('.$cash->note.')');
+        return redirect()->route('buku-kas.index')
+            ->with('alert','Data Kas berhasil dihapus.');
     }
 }

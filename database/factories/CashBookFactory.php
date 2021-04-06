@@ -27,8 +27,7 @@ class CashBookFactory extends Factory
             'date'      => $this->faker->date('Y-m-d'),
             'note'      => $this->faker->unique()->text,
             'debit'     => $this->faker->unique()->numberBetween(500, 1000000000),
-            'credit'    => $this->faker->unique()->numberBetween(500, 1000000000),
-            'total'     => $this->faker->unique()->numberBetween(500, 9999999999)
+            'credit'    => $this->faker->unique()->numberBetween(500, 1000000000)
         ];
     }
 }

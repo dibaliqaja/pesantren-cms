@@ -13,13 +13,29 @@
 
     <div class="row">
         <div class="col-md-8">
-            <a href="javascript:void(0)" id="new-cash-debit" class="btn btn-info mr-3">Tambah Debit</a>
-            <a href="javascript:void(0)" id="new-cash-credit" class="btn btn-warning">Tambah Kredit</a><br><br>
+            <a href="{{ route('buku-kas.debit.create') }}" class="btn btn-info mr-3">Tambah Debit</a>
+            <a href="{{ route('buku-kas.credit.create') }}" class="btn btn-warning">Tambah Kredit</a><br><br>                                        
+        </div>
+        <div class="col-md-4">
+            <form action="#" class="flex-sm">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary mr-2 rounded-right" type="submit"><i class="fas fa-search"></i></button>
+                        <button onclick="window.location.href='{{ route('buku-kas.index') }}'" type="button" class="btn btn-md btn-secondary rounded"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <div class="m-1 float-right">
+                <h3>Saldo: Rp. 12.000.000</h3>
+            </div>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table id="cash-table" role="grid" class="dataTable table table-hover table-bordered">
+        <table class="table table-hover table-bordered">
             <thead>
                 <tr align="center">
                     <th width="5%">No</th>
@@ -27,160 +43,74 @@
                     <th width="30%">Keterangan</th>
                     <th>Debit</th>
                     <th>Kredit</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                    <th width="5%">Action</th>
                 </tr>
             </thead>
+            <tbody>
+                @forelse ($data as $cash => $result)
+                    <tr>
+                        <td>{{ $cash + $data->firstitem() }}</td>
+                        <td>{{ $result->date }}</td>
+                        <td>{{ $result->note }}</td>
+                        <td>Rp. {{ number_format($result->debit, 2, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($result->credit, 2, ',', '.') }}</td>
+                        <td align="center">
+                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteKasModal"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6">Tidak ada data.</td>
+                    </tr>
+                @endforelse
+            </tbody>
         </table>
+    </div>
+    <div class="mt-2 float-left">
+        <span class="ml-3">Data Keseluruhan: <span class="text-primary font-weight-bold">{{ DB::table('cash_books')->count() }}</span> Data Kas telah terdaftar.</span>
+    </div>
+    <div class="mt-3 float-right">
+        {{ $data->links() }}
     </div>
 
 @endsection
 
 @section('modal')
-<!-- Modal Cash -->
-<div class="modal fade" id="ajaxModel" aria-hidden="true" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modelHeading"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="cashForm" name="cashForm" class="form-horizontal">
-                   <input type="hidden" name="cash_id" id="cash_id">
-                    <div class="form-group">
-                        <label for="date" class="col-sm-2 control-label">Tanggal</label>
-                        <div class="col-sm-12">
-                            <input type="date" class="form-control" id="date" name="date" placeholder="Enter date" required>
-                            <span id="dateError" class="alert-message text-danger"></span>
-                        </div>
+    <!-- Modal Delete -->
+    <div class="modal fade" id="deleteKasModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form action="javascript:void(0)" id="deleteForm" method="post">
+                @method('DELETE')
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="vcenter">Hapus Data</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-
-                    <div class="form-group">
-                        <label for="note" class="col-sm-2 control-label">Keterangan</label>
-                        <div class="col-sm-12">
-                            <textarea class="form-control" id="note" name="note" placeholder="Enter note" required></textarea>
-                            <span id="noteError" class="alert-message text-danger"></span>
-                        </div>
+                    <div class="modal-body">
+                        <p>Apakah anda yakin?</p>
                     </div>
-
-                    <div class="form-group" id="debit-form">
-                        <label for="debit" class="col-sm-2 control-label">Debit</label>
-                        <div class="col-sm-12">
-                            <input type="number" min="0" class="form-control" id="debit" name="debit" placeholder="Enter debit">
-                            <span id="debitError" class="alert-message text-danger"></span>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" onclick="formSubmit()" class="btn btn-danger">Hapus</button>
                     </div>
-
-                    <div class="form-group" id="credit-form">
-                        <label for="credit" class="col-sm-2 control-label">Kredit</label>
-                        <div class="col-sm-12">
-                            <input type="number" min="0" class="form-control" id="credit" name="credit" placeholder="Enter credit">
-                            <span id="creditError" class="alert-message text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group ml-3">
-                        <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection
 
 @section('script')
     <script>
-        $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            let table = $('#cash-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('buku-kas.index') }}",
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                    {data: 'date', name: 'date'},
-                    {data: 'note', name: 'note'},
-                    {data: 'debit', name: 'debit', render: $.fn.dataTable.render.number( ',', '.', 0, 'Rp '  )},
-                    {data: 'credit', name: 'credit', render: $.fn.dataTable.render.number( ',', '.', 0, 'Rp '  )},
-                    {data: 'total', name: 'total', render: $.fn.dataTable.render.number( ',', '.', 0, 'Rp '  )},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
-            });
-
-            $('#new-cash-debit').click(function () {
-                $('#saveBtn').val("new-cash");
-                $('#cash_id').val('');
-                $('#cashForm').trigger("reset");
-                $('#modelHeading').html("Tambah Debit");
-                $('#dateError').text('');
-                $('#noteError').text('');
-                $('#debitError').text('');
-                $('#debit-form').show();
-                $('#credit-form').val(0).hide();
-                $('#ajaxModel').modal('show');
-            });
-
-            $('#new-cash-credit').click(function () {
-                $('#saveBtn').val("new-cash");
-                $('#cash_id').val('');
-                $('#cashForm').trigger("reset");
-                $('#modelHeading').html("Tambah Kredit");
-                $('#dateError').text('');
-                $('#noteError').text('');
-                $('#creditError').text('');
-                $('#debit-form').val(0).hide();
-                $('#credit-form').show();
-                $('#ajaxModel').modal('show');
-            });
-
-            $('#saveBtn').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    data: $('#cashForm').serialize(),
-                    url: "{{ route('buku-kas.store') }}",
-                    type: "POST",
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#cashForm').trigger("reset");
-                        $('#ajaxModel').modal('hide');
-                        table.draw();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        $('#dateError').text(data.responseJSON.errors.date);
-                        $('#noteError').text(data.responseJSON.errors.note);
-                        $('#debitError').text(data.responseJSON.errors.debit);
-                        $('#creditError').text(data.responseJSON.errors.credit);
-                    }
-                });
-            });
-
-            $('body').on('click', '.deleteCash', function () {
-                var cash_id = $(this).data("id");
-                let _url = `/buku-kas/${cash_id}`;
-                if (confirm("Are You sure want to delete !")) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: _url,
-                        success: function (data) {
-                            table.draw();
-                        },
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-                    });
-                }
-            });
-        });
+        function deleteData(id) {
+            let url = '{{ route("buku-kas.destroy", ":id") }}';
+            url     = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
+        }
+        function formSubmit() {
+            $("#deleteForm").submit();
+        }
     </script>
 @endsection
