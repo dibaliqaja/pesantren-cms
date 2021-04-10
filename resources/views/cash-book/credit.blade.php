@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="credit">Credit</label>
-            <input type="number" min="0" class="form-control @error('credit') is-invalid @enderror" name="credit" value="{{ old('credit') }}" required>
+            <input type="number" min="1" class="form-control @error('credit') is-invalid @enderror" name="credit" value="{{ old('credit') }}" required>
 
             @error('credit')
                 <span class="invalid-feedback" role="alert">

@@ -3,7 +3,7 @@
 @section('content')
 
     @if (Session::has('alert'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-light alert-dismissible fade show" role="alert">
             {{ Session('alert') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-12">
             <div class="m-1 float-right">
-                <h3>Saldo: Rp. 12.000.000</h3>
+                <h3>Saldo: Rp. {{ number_format($balance, 2, ',', '.') }}</h3>
             </div>
         </div>
     </div>

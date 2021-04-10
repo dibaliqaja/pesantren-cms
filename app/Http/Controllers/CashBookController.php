@@ -6,6 +6,7 @@ use App\Helpers\ActivityLog;
 use App\Http\Requests\CashBookRequest;
 use App\Models\CashBook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -33,6 +34,7 @@ class CashBookController extends Controller
     public function index(Request $request)
     {
         $data       = CashBook::orderBy('date', 'DESC')->orderBy('created_at', 'DESC')->paginate(10);
+        $balance    = DB::table('cash_books')->sum(DB::raw('debit - credit'));        
         $keyword    = $request->keyword;
         if ($keyword)
             $data   = CashBook::where('date', 'LIKE', "%$keyword%")
@@ -42,7 +44,7 @@ class CashBookController extends Controller
                 ->latest()
                 ->paginate(10);
 
-        return view('cash-book.index', compact('data'));
+        return view('cash-book.index', compact('data', 'balance'));
     }
 
     /**
@@ -66,7 +68,7 @@ class CashBookController extends Controller
         $this->validate($request, [
             'date' => 'required|date',
             'note' => 'required|string',
-            'debit' => 'required|numeric|min:0'
+            'debit' => 'required|numeric|min:1'
         ]);
 
         CashBook::create($request->all());
@@ -83,6 +85,12 @@ class CashBookController extends Controller
      */
     public function createCredit()
     {
+        $balance    = DB::table('cash_books')->sum(DB::raw('debit - credit'));
+        if ($balance <= 0) {
+            return redirect()->route('buku-kas.index')
+                ->with('alert', 'Saldo tidak mencukupi.');
+        }
+
         return view('cash-book.credit');
     }
 
@@ -97,8 +105,14 @@ class CashBookController extends Controller
         $this->validate($request, [
             'date' => 'required|date',
             'note' => 'required|string',
-            'credit' => 'required|numeric|min:0'
+            'credit' => 'required|numeric|min:1'
         ]);
+
+        $balance    = DB::table('cash_books')->sum(DB::raw('debit - credit'));
+        if ($request->credit > $balance) {
+            return redirect()->route('buku-kas.index')
+                ->with('alert', 'Saldo tidak mencukupi.');
+        }
 
         CashBook::create($request->all());
 

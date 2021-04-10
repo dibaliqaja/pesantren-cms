@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="debit">Debit</label>
-            <input type="number" min="0" class="form-control @error('debit') is-invalid @enderror" name="debit" value="{{ old('debit') }}" required>
+            <input type="number" min="1" class="form-control @error('debit') is-invalid @enderror" name="debit" value="{{ old('debit') }}" required>
 
             @error('debit')
                 <span class="invalid-feedback" role="alert">
