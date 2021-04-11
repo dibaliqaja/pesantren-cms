@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
@@ -28,6 +29,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $santri     = DB::table('santris')->count();
+        $in_mail    = DB::table('in_mails')->count();
+        $out_mail   = DB::table('out_mails')->count();
+        $cash_book  = DB::table('cash_books')->count();
+        $debit      = DB::table('cash_books')->sum(DB::raw('debit'));
+        $credit     = DB::table('cash_books')->sum(DB::raw('credit'));
+        $balance    = DB::table('cash_books')->sum(DB::raw('debit - credit'));
+        
+        return view('home', compact(
+            'in_mail',
+            'out_mail',
+            'cash_book',
+            'santri',
+            'debit',
+            'credit',
+            'balance'
+        ));
     }
 }

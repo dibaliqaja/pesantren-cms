@@ -13,7 +13,7 @@
                     <h4>Total Banyak Santri</h4>
                 </div>
                 <div class="card-body">
-                    {{ DB::table('santris')->count() }}
+                    {{ $santri }}
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     <h4>Total Surat Masuk</h4>
                 </div>
                 <div class="card-body">
-                    {{ DB::table('in_mails')->count() }}
+                    {{ $in_mail }}
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     <h4>Total Surat Keluar</h4>
                 </div>
                 <div class="card-body">
-                    {{ DB::table('out_mails')->count() }}
+                    {{ $out_mail }}
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
                     <h4>Total Transaksi Kas</h4>
                 </div>
                 <div class="card-body">
-                    1500
+                    {{ $cash_book }}
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     <h4>Pemasukan Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. 100.000,-
+                    Rp. {{ number_format($debit, 2, ',', '.') }}
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     <h4>Pengeluaran Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. 100.000,-
+                    Rp. {{ number_format($credit, 2, ',', '.') }}
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <h4>Saldo Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. 100.000,-
+                    Rp. {{ number_format($balance, 2, ',', '.') }}
                 </div>
             </div>
         </div>

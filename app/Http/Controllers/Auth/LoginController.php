@@ -50,10 +50,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $user->update([
-            'last_login_at' => Carbon::now()->toDateTimeString(),
-            'last_login_ip' => $request->getClientIp()
-        ]);
+        if ($user->role == 'Santri') {
+            auth()->logout();
+            return redirect('login')->with('alert', 'User doesn\'t have access rights.');
+        }
 
         ActivityLog::addToLog('User Login');
     }
