@@ -25,8 +25,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'santri_id' => 'required|exists:users,santri_id',
-            'email' => 'required|string|email|max:255|unique:users,id,'.request()->user()->id,
+            'santri_id' => 'required|exists:santris,id|unique:users,santri_id',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
             'role'  => 'required|in:Administrator,Pengurus,Santri'
         ];

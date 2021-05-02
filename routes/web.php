@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('buku-kas/credit', [\App\Http\Controllers\CashBookController::class, 'storeCredit'])->name('buku-kas.credit.store');
     Route::delete('buku-kas/{id}', [\App\Http\Controllers\CashBookController::class, 'destroy'])->name('buku-kas.destroy');
 
+    // Syahriah
+    Route::get('syahriah', [\App\Http\Controllers\SyahriahController::class, 'index'])->name('syahriah.index');
+
     // In Mail
     Route::resource('surat-masuk', InMailController::class);
 

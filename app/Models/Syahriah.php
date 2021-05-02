@@ -6,20 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 
-class Santri extends Model
+class Syahriah extends Model
 {
     use HasFactory;
     use UsesUuid;
 
     protected $guarded = [];
 
-    public function users()
+    public function santris()
     {
-        return $this->hasOne(User::class);
-    }
-
-    public function syahriahs()
-    {
-        return $this->hasMany(Syahriah::class);
+        return $this->belongsTo(Santri::class);
     }
 }

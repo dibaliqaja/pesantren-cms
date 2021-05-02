@@ -24,8 +24,8 @@
                     <i class="fas fa-book-open"></i><span>Buku Kas</span>
                 </a>
             </li>
-            <li class="">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
+                <a href="{{ route('syahriah.index') }}" class="nav-link">
                     <i class="fas fa-file-invoice"></i><span>Syahriah (SPP)</span>
                 </a>
             </li>

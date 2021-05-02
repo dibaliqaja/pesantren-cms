@@ -106,10 +106,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'santri_id' => 'required|exists:santris,id|unique:users,santri_id,'.$id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            'password' => 'required|string|confirmed|min:8',
+            'role'  => 'required|in:Administrator,Pengurus,Santri'
+        ]);
+
         $user = User::findOrFail($id);
-        $validatedData              = $request->validated();
+        $validatedData              = $request->all();
         $validatedData['password']  = Hash::make($request->password);
         $user->update($validatedData);
 
