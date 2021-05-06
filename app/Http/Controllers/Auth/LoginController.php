@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Carbon;
 use App\Helpers\ActivityLog;
+use App\Models\ActivityLog as ModelsActivityLog;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -52,6 +52,10 @@ class LoginController extends Controller
     {
         if ($user->role == 'Santri') {
             auth()->logout();
+
+            $data = ModelsActivityLog::where('user_id', $user->id)->latest()->first();
+            $data->delete();
+
             return redirect('login')->with('alert', 'User doesn\'t have access rights.');
         }
 

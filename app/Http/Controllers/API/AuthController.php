@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityLog;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -44,12 +45,14 @@ class AuthController extends Controller
                 ], 401);
             }
     
+            ActivityLog::addToLog('User Login');
+            
             return $this->createNewToken($token);
         } catch (\Throwable $th) {
             return response()->json([
                 'message'       => 'Not Found',
                 'status'        => 'error',
-                'data'          => $th
+                'data'          => null
             ]);
         }
     }
@@ -60,19 +63,21 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout() {
-        try {            
+        try {                    
+            ActivityLog::addToLog('User Logout');
+
             auth()->logout();
 
             return response()->json([
-                'success' => true,
-                'message' => 'User successfully signed out'
-            ], 200);
+                'message' => 'User successfully signed out',
+                'status'  => 'success'
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'message'       => 'Not Found',
                 'status'        => 'error',
-                'data'          => $th
-            ], 422);
+                'data'          => null
+            ]);
         }
     }
 
@@ -88,8 +93,8 @@ class AuthController extends Controller
             return response()->json([
                 'message'       => 'Not Found',
                 'status'        => 'error',
-                'data'          => $th
-            ], 422);
+                'data'          => null
+            ]);
         }
     }
 
@@ -102,10 +107,11 @@ class AuthController extends Controller
      */
     protected function createNewToken($token){
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'status'        => 'success',
+            'access_token'  => $token,
+            'token_type'    => 'bearer',
+            'expires_in'    => auth('api')->factory()->getTTL() * 60,
+            'user'          => auth()->user()
         ]);
     }
 }

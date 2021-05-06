@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CashBookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +21,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1.0'], function ($router) {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
 
-    Route::get('/profile', [ProfileController::class, 'userProfile']);
-    Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/update-profile', [ProfileController::class, 'update']);
+
+    Route::get('/buku-kas', [CashBookController::class, 'index']);
 });
 
 // Route::group(['prefix' => 'v1.0'], function () {
