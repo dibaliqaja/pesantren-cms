@@ -2,7 +2,7 @@
 @section('title_page','Edit Data Santri')
 @section('content')
 
-    <form action="{{ route('santri.update', $santri->id) }}" method="post">
+    <form action="{{ route('santri.update', $santri->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
@@ -160,6 +160,24 @@
             <input type="text" class="form-control @error('year_out') is-invalid @enderror" name="year_out" value="{{ old('year_out', $santri->year_out) }}">
 
             @error('year_out')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label for="photo">Photo</label>
+            <input type="file" class="form-control-file @error('photo') is-invalid @enderror" name="photo" value="{{ old('photo') }}">            
+            <span class="text-small text-danger font-italic">File extension only: jpg, jpeg, png | Max Upload Image is 2048 Kb</span>
+            <br>
+
+            @if ($santri->photo != null)            
+                <img alt="Profile Image Santri" src="{{ '/storage/photo/' . $santri->photo }}" class="rounded-circle m-2" width="100">
+            @else
+                <img alt="Profile Image Santri" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle m-2" width="100">
+            @endif
+
+            @error('photo')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

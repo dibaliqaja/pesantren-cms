@@ -15,7 +15,6 @@ class CreateSantrisTable extends Migration
     {
         Schema::create('santris', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            // $table->string('santri_number');
             $table->string('name');
             $table->text('address');
             $table->string('birth_place');
@@ -32,6 +31,7 @@ class CreateSantrisTable extends Migration
             $table->string('parent_phone');
             $table->string('entry_year');
             $table->string('year_out')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

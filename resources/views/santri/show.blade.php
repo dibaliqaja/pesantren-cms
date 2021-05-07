@@ -1,9 +1,16 @@
 @extends('layout-cms.home')
-@section('title_page','Tambah Data Santri')
+@section('title_page','Tampil Data Santri')
 @section('content')
 
     <div class="form-group">
         <a href="{{ route('santri.index') }}" class="btn btn-danger">Kembali</a>
+    </div>
+    <div class="form-group">
+        @if ($santri->photo != null)            
+            <img src="{{ '/storage/photo/' . $santri->photo }}" alt="Profile Image Santri" class="rounded-circle" width="200">
+        @else
+            <img alt="Profile Image Santri" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle" width="200">
+        @endif
     </div>
     <div class="form-group">
         <label for="name">Nama Santri</label>

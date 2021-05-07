@@ -65,7 +65,11 @@
                 </form>
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+                            @if (Auth::user()->santri_id == null || Auth::user()->santris->photo == null)
+                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+                            @else                                
+                                <img alt="image" src="{{ 'storage/photo/' . Auth::user()->santris->photo }}" class="rounded-circle mr-1">
+                            @endif
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->email == 'admin@ponpes.com' ? 'Administrator' : Auth::user()->santris->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">

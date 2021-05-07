@@ -7,6 +7,7 @@ use App\Helpers\ActivityLog;
 use Illuminate\Http\Request;
 use App\Models\Santri;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -68,9 +69,10 @@ class ProfileController extends Controller
             'mother_name'            => 'required|string',
             'father_job'             => 'required|string',
             'mother_job'             => 'required|string',
-            'parent_phone'           => 'required|string',
-            'entry_year'             => 'required|string|digits:4',
-            'year_out'               => 'string|digits:4',
+            'parent_phone'           => 'required|string|unique:santris,parent_phone,'.$id,
+            'entry_year'             => 'required|digits:4',
+            'year_out'               => 'nullable|digits:4',
+            'photo'                  => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         try {
@@ -84,6 +86,22 @@ class ProfileController extends Controller
 
             $data = $request->all();
             $santri = Santri::findOrFail($id);
+
+            if ($request->hasFile('photo')) {
+                $filePath = public_path('storage/photo/'.$santri->photo);
+                if(File::exists($filePath)) File::delete($filePath);
+    
+                $file = $request->photo;
+                $input['photo'] = 'santri-'.time().'.'.$file->getClientOriginalExtension();
+                $destinationPath = public_path('storage/photo');
+                File::exists($destinationPath) or File::makeDirectory($destinationPath);
+                $file->move($destinationPath, $input['photo']);
+                $data['photo']  = $input['photo'];
+                $santri->update($data);
+            } else {
+                $santri->update($data);
+            }
+
             $santri->update($data);
 
             $response = [

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLog;
 use App\Http\Requests\SantriRequest;
 use App\Models\Santri;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,7 @@ class SantriController extends Controller
      */
     public function create()
     {
+        // 202106050001
         // $year = date('Y');
         // $new_year = substr($year, -2);
         // $data_santri = Santri::count();
@@ -67,7 +69,23 @@ class SantriController extends Controller
     public function store(SantriRequest $request)
     {
         $santri = new Santri;
-        $santri->create($request->validated());
+
+        if ($request->hasFile('photo')) {
+            $file = $request->photo;
+            $input['photo'] = 'santri-'.time().'.'.$file->getClientOriginalExtension();
+            $destinationPath = public_path('storage/photo');
+
+            File::exists($destinationPath) or File::makeDirectory($destinationPath);
+
+            $destinationPath = public_path('storage/photo');
+            $file->move($destinationPath, $input['photo']);
+            $validatedData             = $request->validated();
+            $validatedData['photo']  = $input['photo'];
+            $santri->create($validatedData);
+        } else {
+            $validatedData             = $request->validated();
+            $santri->create($validatedData);
+        }
 
         ActivityLog::addToLog('Santri Added');
         return redirect()->route('santri.index')
@@ -106,7 +124,23 @@ class SantriController extends Controller
     public function update(SantriRequest $request, $id)
     {
         $santri = Santri::findOrFail($id);
-        $santri->update($request->validated());
+
+        if ($request->hasFile('photo')) {
+            $filePath = public_path('storage/photo/'.$santri->photo);
+            if(File::exists($filePath)) File::delete($filePath);
+
+            $file = $request->photo;
+            $input['photo'] = 'santri-'.time().'.'.$file->getClientOriginalExtension();
+            $destinationPath = public_path('storage/photo');
+            File::exists($destinationPath) or File::makeDirectory($destinationPath);
+            $file->move($destinationPath, $input['photo']);
+            $validatedData           = $request->validated();
+            $validatedData['photo']  = $input['photo'];
+            $santri->update($validatedData);
+        } else {
+            $validatedData           = $request->validated();
+            $santri->update($validatedData);
+        }
 
         ActivityLog::addToLog('Santri Updated');
         return redirect()->route('santri.index')

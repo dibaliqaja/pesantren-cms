@@ -2,7 +2,7 @@
 @section('title_page','Tambah Data Santri')
 @section('content')
 
-    <form action="{{ route('santri.store') }}" method="post">
+    <form action="{{ route('santri.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Nama Santri</label>
@@ -159,6 +159,17 @@
             <input type="tel" class="form-control @error('year_out') is-invalid @enderror" name="year_out" value="{{ old('year_out') }}">
 
             @error('year_out')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label for="photo">Photo</label>
+            <input type="file" class="form-control-file @error('photo') is-invalid @enderror" name="photo" value="{{ old('photo') }}">
+            <span class="text-small text-danger font-italic">File extension only: jpg, jpeg, png | Max Upload Image is 2048 Kb</span>
+
+            @error('photo')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
