@@ -63,7 +63,7 @@
             <div class="col-md-6">
                 <select class="form-control select2 @error('role') is-invalid @enderror" name="role" required>
                     <option selected disabled>Select Role</option>
-                    <option value="Administrator">Administrator</option>
+                    <option value="Administrator" @if (Auth::user()->role == 'Pengurus') disabled @endif>Administrator</option>
                     <option value="Pengurus">Pengurus</option>
                     <option value="Santri">Santri</option>
                 </select>

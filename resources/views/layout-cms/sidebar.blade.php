@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="#" target="_blank">Ponpes App</a>
+            <a href="#" target="_blank">Ponpes CMS</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="#" target="_blank">PA</a>
+            <a href="#" target="_blank">CMS</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>

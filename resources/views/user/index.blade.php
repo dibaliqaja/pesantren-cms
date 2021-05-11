@@ -50,7 +50,11 @@
                         {{-- <td><a href="javascript:void(0)" class="text-info" id="file-in" onclick="viewFile('{{ $result->file_in }}')" data-toggle="modal" data-target="#modalFileIn">$result->photoPhoto</a></td> --}}
                         <td align="center">
                             @if ($result->role == 'Administrator')
-                                No Action
+                                @if (Auth::user()->role == 'Pengurus')
+                                    No Action
+                                @else                                    
+                                    <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                                @endif
                             @else
                                 <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
                                 <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
