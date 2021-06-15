@@ -19,16 +19,23 @@
                 </a>
             </li>
             <li class="menu-header">Keuangan</li>
+            <li class="{{ (request()->routeIs('biaya*')) ? 'active' : '' }}">
+                <a href="{{ route('biaya.index') }}" class="nav-link">
+                    <i class="far fa-file-alt"></i><span>Biaya</span>
+                </a>
+            </li>
             <li class="{{ (request()->routeIs('buku-kas*')) ? 'active' : '' }}">
                 <a href="{{ route('buku-kas.index') }}" class="nav-link">
                     <i class="fas fa-book-open"></i><span>Buku Kas</span>
                 </a>
             </li>
-            <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
-                <a href="{{ route('syahriah.index') }}" class="nav-link">
-                    <i class="fas fa-file-invoice"></i><span>Syahriah (SPP)</span>
-                </a>
-            </li>
+            <li class="dropdown {{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice"></i> <span>Pembayaran</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="#">Pendaftaran Baru</a></li>
+                  <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('syahriah.index') }}">Syahriah (SPP)</a></li>
+                </ul>
+              </li>
             <li class="menu-header">Administrasi</li>
             <li class="{{ (request()->routeIs('surat-masuk*')) ? 'active' : '' }}">
                 <a href="{{ route('surat-masuk.index') }}" class="nav-link">

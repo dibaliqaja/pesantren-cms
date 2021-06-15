@@ -44,6 +44,13 @@ class AuthController extends Controller
                     'message' => 'Unauthorized'
                 ], 401);
             }
+
+            if (auth()->user()->role == 'Administrator') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
     
             ActivityLog::addToLog('User Login');
             
@@ -63,7 +70,14 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout() {
-        try {                    
+        try {    
+            if (auth()->user()->role == 'Administrator') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+
             ActivityLog::addToLog('User Logout');
 
             auth()->logout();
@@ -88,6 +102,13 @@ class AuthController extends Controller
      */
     public function refresh() {
         try {
+            if (auth()->user()->role == 'Administrator') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+            
             return $this->createNewToken(auth()->refresh());
         } catch (\Throwable $th) {
             return response()->json([

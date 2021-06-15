@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Santri
     Route::resource('santri', SantriController::class);
 
+    // Cost
+    Route::get('biaya', [\App\Http\Controllers\CostController::class, 'index'])->name('biaya.index');
+    Route::get('biaya/edit', [\App\Http\Controllers\CostController::class, 'edit'])->name('biaya.edit');
+    Route::patch('biaya/edit', [\App\Http\Controllers\CostController::class, 'update'])->name('biaya.update');
+
     // Cash Book
     Route::get('buku-kas', [\App\Http\Controllers\CashBookController::class, 'index'])->name('buku-kas.index');
     Route::get('buku-kas/debit/create', [\App\Http\Controllers\CashBookController::class, 'createDebit'])->name('buku-kas.debit.create');
