@@ -66,7 +66,8 @@
                 @forelse ($data as $syahriah => $result)
                     <tr align="center">
                         <td>{{ $syahriah + 1 }}</td>
-                        <td>{{ $result->name }}</td>
+                        <td><a href="{{ route('santri.show', $result->id) }}" target="blank">{{ $result->name }}</a></td>
+                        {{-- <td>{{ $result->name }} </td> --}}
                         <td>
                             <input type="checkbox" name="month" id="month-jan" data-id="{{ $result->id }}">
                         </td>

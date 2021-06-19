@@ -54,7 +54,7 @@ class AuthController extends Controller
     
             ActivityLog::addToLog('User Login');
             
-            return $this->createNewToken($token);
+            return $this->createNewToken("User Login Success", $token);
         } catch (\Throwable $th) {
             return response()->json([
                 'message'       => 'Not Found',
@@ -109,7 +109,7 @@ class AuthController extends Controller
                 ], 401);
             }
             
-            return $this->createNewToken(auth()->refresh());
+            return $this->createNewToken("User Refresh Token Success", auth()->refresh());
         } catch (\Throwable $th) {
             return response()->json([
                 'message'       => 'Not Found',
@@ -126,13 +126,16 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token){
+    protected function createNewToken($message,$token){
         return response()->json([
+            'message'       => $message,
             'status'        => 'success',
-            'access_token'  => $token,
-            'token_type'    => 'bearer',
-            'expires_in'    => auth('api')->factory()->getTTL() * 60,
-            'user'          => auth()->user()
+            'data'          => [
+                'access_token'  => $token,
+                'token_type'    => 'bearer',
+                'expires_in'    => auth('api')->factory()->getTTL() * 60,
+                'user'          => auth()->user()
+            ]
         ]);
     }
 }
