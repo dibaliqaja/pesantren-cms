@@ -33,33 +33,33 @@ class AuthController extends Controller
     
             if ($validator->fails()) {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'error',
                     'message' => $validator->errors()
                 ], 422);
             }
     
             if (!$token = JWTAuth::attempt($validator->validated())) {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'error',
                     'message' => 'Unauthorized'
                 ], 401);
             }
 
             if (auth()->user()->role == 'Administrator') {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'error',
                     'message' => 'Unauthorized'
                 ], 401);
             }
     
             ActivityLog::addToLog('User Login');
             
-            return $this->createNewToken("User Login Success", $token);
+            return $this->createNewToken("User login success", $token);
         } catch (\Throwable $th) {
             return response()->json([
-                'message'       => 'Not Found',
-                'status'        => 'error',
-                'data'          => null
+                'status' => 'error',
+                'message' => 'Not Found',
+                'data' => null
             ]);
         }
     }
@@ -73,24 +73,23 @@ class AuthController extends Controller
         try {    
             if (auth()->user()->role == 'Administrator') {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'error',
                     'message' => 'Unauthorized'
                 ], 401);
             }
 
             ActivityLog::addToLog('User Logout');
-
             auth()->logout();
 
             return response()->json([
-                'message' => 'User successfully signed out',
-                'status'  => 'success'
+                'status' => 'success',
+                'message' => 'User successfully signed out'
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'message'       => 'Not Found',
-                'status'        => 'error',
-                'data'          => null
+                'status' => 'error',
+                'message' => 'Not Found',
+                'data' => null
             ]);
         }
     }
@@ -104,17 +103,17 @@ class AuthController extends Controller
         try {
             if (auth()->user()->role == 'Administrator') {
                 return response()->json([
-                    'success' => false,
+                    'status' => 'error',
                     'message' => 'Unauthorized'
                 ], 401);
             }
             
-            return $this->createNewToken("User Refresh Token Success", auth()->refresh());
+            return $this->createNewToken("User refresh token success", auth()->refresh());
         } catch (\Throwable $th) {
             return response()->json([
-                'message'       => 'Not Found',
-                'status'        => 'error',
-                'data'          => null
+                'status' => 'error',
+                'message' => 'Not Found',
+                'data' => null
             ]);
         }
     }
@@ -128,13 +127,16 @@ class AuthController extends Controller
      */
     protected function createNewToken($message,$token){
         return response()->json([
-            'message'       => $message,
-            'status'        => 'success',
-            'data'          => [
-                'access_token'  => $token,
-                'token_type'    => 'bearer',
-                'expires_in'    => auth('api')->factory()->getTTL() * 60,
-                'user'          => auth()->user()
+            'status' => 'success',
+            'message' => $message,
+            'data' => [
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 60,
+                'santri_id' => auth()->user()->santri_id,
+                'email' => auth()->user()->email,
+                'name' => auth()->user()->santris->name,
+                'role' => auth()->user()->role
             ]
         ]);
     }

@@ -31,15 +31,15 @@ class ProfileController extends Controller
             $user = User::with('santris')->find(auth()->id());
 
             return response()->json([
-                'message' => 'Profile Query Get Success',
                 'status'  => 'success',
+                'message' => 'Profile query get success',
                 'data'    => $user->santris
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'message'       => 'Not Found',
-                'status'        => 'error',
-                'data'          => null
+                'status'  => 'error',
+                'message' => 'Not Found',
+                'data'    => null
             ]);
         }
     }
@@ -78,9 +78,9 @@ class ProfileController extends Controller
         try {
             if ($validator->fails()) {
                 return response()->json([
-                    'message'       => 'Validation Error',
-                    'status'        => 'error',
-                    'data'          => $validator->errors(),
+                    'status'  => 'error',
+                    'message' => 'Validation Error',
+                    'data'    => $validator->errors(),
                 ], 400);
             }
 
@@ -105,9 +105,9 @@ class ProfileController extends Controller
             $santri->update($data);
 
             $response = [
-                'message'       => 'Data Santri Update Successfully',
-                'status'        => 'success',
-                'data'          => $santri,
+                'status'  => 'success',
+                'message' => 'Data santri update successfully',
+                'data'    => $santri,
             ];
 
             ActivityLog::addToLog('Profile Santri Updated');
@@ -115,9 +115,9 @@ class ProfileController extends Controller
             return response()->json($response, 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'message'       => 'Not Found',
-                'status'        => 'error',
-                'data'          => null
+                'status'  => 'error',
+                'message' => 'Not Found',
+                'data'    => null
             ]);
         }
     }
