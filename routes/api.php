@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CashBookController;
+use App\Http\Controllers\API\SantriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +26,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
     Route::post('/update-profile', [ProfileController::class, 'update']);
 
     Route::get('/buku-kas', [CashBookController::class, 'index']);
-});
 
-// Route::group(['prefix' => 'v1.0'], function () {
-//     Route::resource('santri', SantriController::class);
-// });
+    Route::resource('santri', SantriController::class);
+});

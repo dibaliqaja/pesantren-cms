@@ -18,6 +18,11 @@ class Santri extends Model
         return $this->hasOne(User::class);
     }
 
+    public function registration()
+    {
+        return $this->hasOne(RegistrationCost::class);
+    }
+
     public function syahriahs()
     {
         return $this->hasMany(Syahriah::class);

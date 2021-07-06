@@ -29,11 +29,15 @@
                     <i class="fas fa-book-open"></i><span>Buku Kas</span>
                 </a>
             </li>
-            <li class="dropdown {{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
+            <li class="dropdown {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice"></i> <span>Pembayaran</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Pendaftaran Baru</a></li>
-                  <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('syahriah.index') }}">Syahriah (SPP)</a></li>
+                    <li class="{{ (request()->routeIs('registration*')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('registration.index') }}">Pendaftaran Baru</a>
+                    </li>
+                    <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('syahriah.index') }}">Syahriah (SPP)</a>
+                    </li>
                 </ul>
               </li>
             <li class="menu-header">Administrasi</li>

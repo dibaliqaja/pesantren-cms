@@ -51,6 +51,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('buku-kas/credit', [\App\Http\Controllers\CashBookController::class, 'storeCredit'])->name('buku-kas.credit.store');
     Route::delete('buku-kas/{id}', [\App\Http\Controllers\CashBookController::class, 'destroy'])->name('buku-kas.destroy');
 
+    // Registration Cost
+    Route::get('pendaftaran-baru', [\App\Http\Controllers\RegistrationCostController::class, 'index'])->name('registration.index');
+    Route::get('pendaftaran-baru/create', [\App\Http\Controllers\RegistrationCostController::class, 'create'])->name('registration.create');
+    Route::post('pendaftaran-baru', [\App\Http\Controllers\RegistrationCostController::class, 'store'])->name('registration.store');
+    Route::get('pendaftaran-baru/print/{id}', [\App\Http\Controllers\RegistrationCostController::class, 'print'])->name('registration.print');
+
     // Syahriah
     Route::get('syahriah', [\App\Http\Controllers\SyahriahController::class, 'index'])->name('syahriah.index');
 

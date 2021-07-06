@@ -1,0 +1,43 @@
+@extends('layout-cms.home')
+@section('title_page','Rincian Biaya Pendaftar Baru')
+@section('content')
+
+    <form action="{{ route('registration.store') }}" method="post">
+        @csrf
+        <div class="form-group">
+            <label for="santri_id">Nama Santri</label>
+            <select class="form-control select2 @error('santri_id') is-invalid @enderror" name="santri_id" required>
+                <option selected disabled>Select Santri</option>
+                @foreach ($data as $santri)
+                    <option value="{{ $santri->id }}"
+                        @if (\App\Models\RegistrationCost::where('santri_id', $santri->id)->exists())
+                            disabled
+                        @endif>{{ $santri->name }}</option>
+                @endforeach
+            </select>
+
+            @error('santri_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label for="birth_place">Biaya Pembangunan</label>
+            <input type="text" class="form-control" name="construction" value="{{ $cost->construction }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="birth_date">Biaya Fasilitas</label>
+            <input type="text" class="form-control" name="facilities" value="{{ $cost->facilities }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="phone">Biaya Alokasi Almari</label>
+            <input type="tel" class="form-control" name="wardrobe" value="{{ $cost->wardrobe }}" readonly>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Bayar</button>
+            <a href="{{ route('registration.index') }}" class="btn btn-secondary">Kembali</a>
+        </div>
+    </form>
+
+@endsection
