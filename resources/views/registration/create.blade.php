@@ -23,16 +23,16 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="birth_place">Biaya Pembangunan</label>
+            <label for="construction">Biaya Pembangunan</label>
             <input type="text" class="form-control" name="construction" value="{{ $cost->construction }}" readonly>
         </div>
         <div class="form-group">
-            <label for="birth_date">Biaya Fasilitas</label>
+            <label for="facilities">Biaya Fasilitas</label>
             <input type="text" class="form-control" name="facilities" value="{{ $cost->facilities }}" readonly>
         </div>
         <div class="form-group">
-            <label for="phone">Biaya Alokasi Almari</label>
-            <input type="tel" class="form-control" name="wardrobe" value="{{ $cost->wardrobe }}" readonly>
+            <label for="wardrobe">Biaya Alokasi Almari</label>
+            <input type="text" class="form-control" name="wardrobe" value="{{ $cost->wardrobe }}" readonly>
         </div>
         <div class="form-group">
             <button class="btn btn-primary">Bayar</button>

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cost;
 use App\Models\Santri;
 use App\Models\Syahriah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Helpers\ActivityLog;
+use App\Models\CashBook;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class SyahriahController extends Controller
 {
@@ -32,37 +36,27 @@ class SyahriahController extends Controller
     {
         $now  = (int) date('Y');
         $data = Santri::with('syahriahs')->get();
+        $year = $request->year;
+        $syahriahs = Syahriah::with('santris')->latest()->paginate(10);
+        
+        if ($year) $now = $year;
 
-        // $year    = $request->year;
-        // $keyword = $request->keyword ? $request->keyword : '';
+        return view('syahriah.index', compact('now', 'data', 'syahriahs'));
+    }
 
-        // if ($year) {
-        //     $now = $year;
-        //     $data = Santri::with('syahriahs')->whereHas('syahriahs', function($q) use ($year) {
-        //         $q->where('year', $year);
-        //     })->get();
-        //     dd($data);
-        // }
+    /**
+     *
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $data = Santri::all();
+        $cost = Cost::first();
+        $now  = (int) date('Y');
 
-        // if ($year) {
-        //     $books = Book::with('categories')->where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
-        // } else {
-        //     $books = Book::with('categories')->where('title', "LIKE", "%$keyword%")->paginate(10);
-        // }
-
-        // $data       = User::with('santris')->latest()->paginate(10);
-        // $keyword    = $request->keyword;
-        // if ($keyword)
-        //     $data   = User::with('santris')
-        //         ->where('email', 'LIKE', "%$keyword%")
-        //         ->orWhere('role', 'LIKE', "%$keyword%")
-        //         ->orWhereHas('santris', function ($query) use ($keyword) {
-        //             $query->where('name', 'LIKE', "%$keyword%");
-        //         })
-        //         ->latest()
-        //         ->paginate(10);
-
-        return view('syahriah.index', compact('now', 'data'));
+        return view('syahriah.create', compact('data', 'cost', 'now'));
     }
 
     /**
@@ -73,15 +67,60 @@ class SyahriahController extends Controller
      */
     public function store(Request $request)
     {
-        // Syahriah::create([
-        //     'date'      => now(),
-        //     'month'     => $request->month,
-        //     'year'      => $request->year,
-        //     'pay'       => 1,
-        //     'santri_id' => $request->santri_id,
-        // ]);
+        $this->validate($request, [
+            'santri_id' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+        ]);
 
-        // return redirect()->route('syahriah.index')
-        //     ->with('alert', 'Syahriah berhasil dibayar.');
+        if (Syahriah::where('santri_id', $request->santri_id)->where('month', $request->month)->where('year', $request->year)->exists()) {
+            return redirect()->back()
+                ->with('error', 'Syahriah sudah dibayar.');
+        }
+
+        Syahriah::create([
+            'date'      => now(),
+            'month'     => $request->month,
+            'year'      => $request->year,
+            'santri_id' => $request->santri_id,
+            'spp'       => $request->spp
+        ]);
+
+        $santri = Syahriah::with('santris')->where('santri_id', $request->santri_id)->first();
+
+        CashBook::create([
+            'date' => now(),
+            'note' => 'Pembayaran Syahriah ' . $santri->santris->name . ' ('. $santri->month . $santri->year .')',
+            'debit' => $request->spp
+        ]);
+
+        ActivityLog::addToLog('Pembayaran Syahriah ' . $santri->santris->name . ' ('. $santri->month . $santri->year .')');
+        return redirect()->route('syahriah.index')
+            ->with('alert', 'Syahriah berhasil dibayar.');
+    }
+
+    public function print($id)
+    {
+      $data = Syahriah::with('santris')->findOrFail($id);
+      $total = $data->spp;
+      $pdf = PDF::loadView('syahriah.print', compact('data', 'total'))->setPaper('a4', 'portrait');
+
+      return $pdf->stream('syahriah.pdf');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $syahriah = Syahriah::findOrFail($id);
+        $syahriah->delete();
+
+        ActivityLog::addToLog('Syahriah Deleted');
+        return redirect()->route('santri.index')
+            ->with('alert','Data Syahriah berhasil dihapus.');
     }
 }

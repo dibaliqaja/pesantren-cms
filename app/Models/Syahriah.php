@@ -15,6 +15,6 @@ class Syahriah extends Model
 
     public function santris()
     {
-        return $this->belongsTo(Santri::class);
+        return $this->belongsTo(Santri::class, 'santri_id');
     }
 }

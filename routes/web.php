@@ -59,6 +59,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Syahriah
     Route::get('syahriah', [\App\Http\Controllers\SyahriahController::class, 'index'])->name('syahriah.index');
+    Route::get('syahriah/create', [\App\Http\Controllers\SyahriahController::class, 'create'])->name('syahriah.create');
+    Route::post('syahriah', [\App\Http\Controllers\SyahriahController::class, 'store'])->name('syahriah.store');
+    Route::get('syahriah/print/{id}', [\App\Http\Controllers\SyahriahController::class, 'print'])->name('syahriah.print');
+    Route::delete('syahriah/{id}', [\App\Http\Controllers\SyahriahController::class, 'destroy'])->name('syahriah.destroy');
 
     // In Mail
     Route::resource('surat-masuk', InMailController::class);

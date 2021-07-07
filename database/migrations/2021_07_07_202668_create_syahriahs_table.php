@@ -16,8 +16,9 @@ class CreateSyahriahsTable extends Migration
         Schema::create('syahriahs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('date');
-            $table->enum('month', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+            $table->enum('month', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
             $table->year('year');
+            $table->float('spp');
             $table->uuid('santri_id')->nullable();
             $table->timestamps();
 
