@@ -8,6 +8,7 @@ use App\Models\Santri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Helpers\ActivityLog;
+use App\Models\CashBook;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class RegistrationCostController extends Controller
@@ -65,6 +66,10 @@ class RegistrationCostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'santri_id' => 'required|unique:registration_costs,santri_id',
+        ]);
+
         RegistrationCost::create([
             'santri_id' => $request->santri_id,
             'construction' => $request->construction,
@@ -72,7 +77,16 @@ class RegistrationCostController extends Controller
             'wardrobe' => $request->wardrobe
         ]);
 
-        ActivityLog::addToLog('Pembayaran Pendaftar Baru');
+        $santri = RegistrationCost::with('santris')->where('santri_id', $request->santri_id)->first();
+        $total = $request->construction + $request->facilities + $request->wardrobe;
+
+        CashBook::create([
+            'date' => now(),
+            'note' => 'Pembayaran Pendaftaran Santri Baru ' . $santri->santris->name,
+            'debit' => $total
+        ]);
+
+        ActivityLog::addToLog('Pembayaran Pendaftaran Santri Baru ' . $santri->santris->name);
         return redirect()->route('registration.index')
             ->with('alert', 'Pembayaran Pendaftar Baru berhasil dilakukan.');    
     }

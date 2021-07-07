@@ -18,7 +18,6 @@ class CreateSyahriahsTable extends Migration
             $table->date('date');
             $table->enum('month', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
             $table->year('year');
-            $table->enum('pay', ['1']);
             $table->uuid('santri_id')->nullable();
             $table->timestamps();
 
