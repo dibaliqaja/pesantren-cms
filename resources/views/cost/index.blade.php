@@ -13,7 +13,9 @@
 
     <div class="row">
         <div class="col-md-8 mb-3">
-            <a href="{{ route('biaya.edit') }}" class="btn btn-primary">Edit Biaya</a><br><br>
+            @if (auth()->user()->role == 'Administrator')                
+                <a href="{{ route('biaya.edit') }}" class="btn btn-primary">Edit Biaya</a><br><br>
+            @endif
         </div>
     </div>
 

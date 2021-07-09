@@ -42,6 +42,9 @@ class CostController extends Controller
      */
     public function edit()
     {
+        if (auth()->user()->role == 'Pengurus') {
+            return redirect()->back();
+        }
         $data = Cost::first();
 
         return view('cost.edit', compact('data'));
@@ -55,6 +58,10 @@ class CostController extends Controller
      */
     public function update(Request $request)
     {
+        if (auth()->user()->role == 'Pengurus') {
+            return redirect()->back();
+        }
+        
         $this->validate($request, [
             'spp' => 'required|numeric|min:0',
             'construction' => 'required|numeric|min:1',

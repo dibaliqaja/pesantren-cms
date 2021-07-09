@@ -1,5 +1,5 @@
 @extends('layout-cms.home')
-@section('title_page','Tambah Debit')
+@section('title_page','Tambah Pemasukan')
 @section('content')
 
     <form action="{{ route('buku-kas.debit.store') }}" method="post">

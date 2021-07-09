@@ -3,7 +3,7 @@
 @section('content')
 
     @if (Session::has('alert'))
-        <div class="alert alert-light alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{ Session('alert') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -13,8 +13,8 @@
 
     <div class="row">
         <div class="col-md-8">
-            <a href="{{ route('buku-kas.debit.create') }}" class="btn btn-info mr-3">Tambah Debit</a>
-            <a href="{{ route('buku-kas.credit.create') }}" class="btn btn-warning">Tambah Kredit</a><br><br>                                        
+            <a href="{{ route('buku-kas.debit.create') }}" class="btn btn-info mr-3">Tambah Pemasukan</a>
+            <a href="{{ route('buku-kas.credit.create') }}" class="btn btn-warning">Tambah Pengeluaran</a><br><br>                                        
         </div>
         <div class="col-md-4">
             <form action="#" class="flex-sm">
@@ -55,7 +55,11 @@
                         <td>Rp. {{ number_format($result->debit, 2, ',', '.') }}</td>
                         <td>Rp. {{ number_format($result->credit, 2, ',', '.') }}</td>
                         <td align="center">
-                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteKasModal"><i class="fas fa-trash"></i></a>
+                            @if (auth()->user()->role == 'Administrator')   
+                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteKasModal"><i class="fas fa-trash"></i></a>
+                            @else
+                                No Action
+                            @endif
                         </td>
                     </tr>
                 @empty

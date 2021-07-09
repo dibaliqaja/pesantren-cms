@@ -1,5 +1,5 @@
 @extends('layout-cms.home')
-@section('title_page','Tambah Kredit')
+@section('title_page','Tambah Pengeluaran')
 @section('content')
 
     <form action="{{ route('buku-kas.credit.store') }}" method="post">

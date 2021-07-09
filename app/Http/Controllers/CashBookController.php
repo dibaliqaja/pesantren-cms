@@ -75,7 +75,7 @@ class CashBookController extends Controller
 
         ActivityLog::addToLog('Cash Debit Added');
         return redirect()->route('buku-kas.index')
-            ->with('alert', 'Debit berhasil ditambahkan.');
+            ->with('alert', 'Pemasukan berhasil ditambahkan.');
     }
 
     /**
@@ -118,7 +118,7 @@ class CashBookController extends Controller
 
         ActivityLog::addToLog('Cash Credit Added');
         return redirect()->route('buku-kas.index')
-            ->with('alert', 'Kredit berhasil ditambahkan.');
+            ->with('alert', 'Pengeluaran berhasil ditambahkan.');
     }
 
     /**
