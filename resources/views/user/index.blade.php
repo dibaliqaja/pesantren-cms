@@ -47,17 +47,17 @@
                         <td>{{ $result->role == 'Administrator' ? 'Administrator' : $result->santris->name }}</td>
                         <td>{{ $result->email }}</td>
                         <td>{{ $result->role }}</td>
-                        {{-- <td><a href="javascript:void(0)" class="text-info" id="file-in" onclick="viewFile('{{ $result->file_in }}')" data-toggle="modal" data-target="#modalFileIn">$result->photoPhoto</a></td> --}}
                         <td align="center">
-                            @if ($result->role == 'Administrator')
-                                @if (Auth::user()->role == 'Pengurus')
-                                    No Action
-                                @else                                    
-                                    <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                                @endif
-                            @else
+                            @if (Auth::user()->role == 'Administrator')
                                 <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
                                 <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
+                            @else
+                                @if ($result->role == 'Administrator')
+                                    No Action
+                                @else
+                                    <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>                                
+                                    <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
+                                @endif
                             @endif
                         </td>
                     </tr>
@@ -101,23 +101,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- Modal File In -->
-    <div class="modal fade" id="modalFileIn" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="max-width: max-content; width: 690px; height: 610px">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="vcenter">Tampil File Surat Masuk</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <embed src="" id="embed-file" width="600" height="500" alt="pdf" />
-                </div>
-            </div>
         </div>
     </div>
 @endsection

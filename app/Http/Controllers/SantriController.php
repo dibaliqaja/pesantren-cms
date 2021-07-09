@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLog;
 use App\Http\Requests\SantriRequest;
 use App\Models\Santri;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -156,6 +157,14 @@ class SantriController extends Controller
     public function destroy($id)
     {
         $santri = Santri::findOrFail($id);
+        $user_exist = User::where('santri_id', $santri->id)->exists();
+
+        if ($user_exist) {
+            return redirect()->back()->with('alert','Data Santri masih berelasi dengan salah satu data pengguna.');
+        }
+
+        $filePath = public_path('storage/photo/'.$santri->photo);
+        if(File::exists($filePath)) File::delete($filePath);
         $santri->delete();
 
         ActivityLog::addToLog('Santri Deleted');

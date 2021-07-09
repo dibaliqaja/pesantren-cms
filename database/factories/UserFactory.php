@@ -24,11 +24,20 @@ class UserFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'email' => 'admin@ponpes.com', // $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
+            'email' => 'admin@ponpes.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role'  => 'Administrator', // $this->faker->randomElement(['Administrator', 'Pengurus', 'Santri']),
-            'remember_token' => Str::random(10),
+            'role'  => 'Administrator', 
+            'santri_id' => 'fa201ed9-6016-4d90-b3aa-f4858c5260d6'
         ];
+
+        // return [
+        //     'id' => Str::uuid(),
+        //     'email' => $this->faker->unique()->safeEmail,
+        //     'email_verified_at' => now(),
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        //     'role'  => $this->faker->randomElement(['Administrator', 'Pengurus', 'Santri']),
+        //     'santri_id' => 'fa201ed9-6016-4d90-b3aa-f4858c5260d6'
+        //     'remember_token' => Str::random(10),
+        // ];
     }
 }

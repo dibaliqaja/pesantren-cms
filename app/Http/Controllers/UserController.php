@@ -95,7 +95,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = Santri::all();
-        $user = $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
         return view('user.edit', compact('user', 'data'));
     }
 
@@ -111,13 +111,11 @@ class UserController extends Controller
         $request->validate([
             'santri_id' => 'required|exists:santris,id|unique:users,santri_id,'.$id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-            'password' => 'required|string|confirmed|min:8',
             'role'  => 'required|in:Administrator,Pengurus,Santri'
         ]);
 
         $user = User::findOrFail($id);
         $validatedData              = $request->all();
-        $validatedData['password']  = Hash::make($request->password);
         $user->update($validatedData);
 
         return redirect()->route('pengguna.index')
@@ -133,6 +131,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        if (auth()->user() == $user) {
+            return redirect()->back()
+                ->with('alert','Pengguna sedang login.');
+        }
         $user->delete();
 
         return redirect()->route('pengguna.index')
