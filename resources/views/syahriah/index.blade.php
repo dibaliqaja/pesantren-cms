@@ -3,7 +3,7 @@
 @section('content')
 
     @if (Session::has('alert'))
-        <div class="alert alert-light alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{ Session('alert') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -172,7 +172,9 @@
                             <td>{{ $result->date }}</td>
                             <td align="center">
                                 <a href="{{ route('syahriah.print', $result->id) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-print"></i></a>
-                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSyahriahModal"><i class="fas fa-trash"></i></a>
+                                @if (auth()->user()->role == 'Administrator')      
+                                    <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSyahriahModal"><i class="fas fa-trash"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @empty

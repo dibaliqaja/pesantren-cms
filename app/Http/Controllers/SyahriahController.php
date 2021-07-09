@@ -116,11 +116,13 @@ class SyahriahController extends Controller
      */
     public function destroy($id)
     {
-        $syahriah = Syahriah::findOrFail($id);
+        $syahriah = Syahriah::with('santris')->findOrFail($id);
+        $cash_book = CashBook::where('date', $syahriah->date)->where('note', 'Pembayaran Syahriah ' . $syahriah->santris->name . ' ('. $syahriah->month . $syahriah->year .')')->first();
+        $cash_book->delete();
         $syahriah->delete();
 
         ActivityLog::addToLog('Syahriah Deleted');
-        return redirect()->route('santri.index')
+        return redirect()->route('syahriah.index')
             ->with('alert','Data Syahriah berhasil dihapus.');
     }
 }

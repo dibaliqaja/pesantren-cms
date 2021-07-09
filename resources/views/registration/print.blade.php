@@ -144,7 +144,6 @@
                     <table>
                         <tr>
                             <td>
-                                Invoice #: 123<br />
                                 Tanggal: {{ date("d F Y", strtotime($data->created_at)) }}
                             </td>
 
@@ -204,8 +203,8 @@
 
                             <td>
                                 Mengetahui,<br /><br /><br />
-                                {{ auth()->user()->role }}<br />
-                                {{ auth()->user()->email }}
+                                {{ auth()->user()->santris->name }}<br />
+                                {{ auth()->user()->role }}
                             </td>
                         </tr>
                     </table>
