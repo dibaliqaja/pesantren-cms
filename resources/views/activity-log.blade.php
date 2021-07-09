@@ -12,7 +12,6 @@
                     <th>Date & Time</th>
                     <th>Subject</th>
                     <th>Action By</th>
-                    <th width="15%">Agent</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +21,6 @@
                         <td>{{ $result->created_at }} - {{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</td>
                         <td>{{ $result->subject }}</td>
                         <td>{{ $result->email }} <br><small class="text-info">{{ $result->name }}</small> </td>
-                        <td><small class="text-warning">{{ $result->agent }}</small></td>
                     </tr>
                 @empty
                     <tr>

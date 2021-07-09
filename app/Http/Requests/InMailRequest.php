@@ -24,7 +24,7 @@ class InMailRequest extends FormRequest
     public function rules()
     {
         return [
-            'mail_number'   => 'required|string|unique:in_mails,mail_number,'.$this->in_mail,
+            'mail_number'   => 'required|string|unique:in_mails,mail_number,'.$this->surat_masuk,
             'mail_date'     => 'required|date',
             'note'          => 'required|string',
             'sender'        => 'required|string',

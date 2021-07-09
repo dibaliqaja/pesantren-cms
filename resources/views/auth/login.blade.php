@@ -43,8 +43,6 @@
                 @if (session('alert'))
                     <div class="alert alert-danger m-2" role="alert">
                         <div class="text-center">{{ session('alert') }}</div>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        </button>
                     </div>
                 @endif
 

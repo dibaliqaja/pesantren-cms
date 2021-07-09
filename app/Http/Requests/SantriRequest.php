@@ -27,7 +27,6 @@ class SantriRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'santri_number'                 => 'required|string|unique:posts,title,'.$this->post.'|min:5',
             'name'                   => 'required|string|min:5',
             'address'                => 'required|string|min:5',
             'birth_place'            => 'required|string|min:5',
