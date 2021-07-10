@@ -11,8 +11,6 @@ class ActivityLog
     	$log = [];
     	$log['subject'] = $subject;
     	$log['url']     = request()->fullUrl();
-    	$log['method']  = request()->method();
-    	$log['agent']   = request()->userAgent(); // header('user-agent');
     	$log['user_id'] = auth()->check() ? auth()->user()->id : 1;
     	ActivityLogModel::create($log);
     }

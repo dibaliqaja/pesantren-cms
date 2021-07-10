@@ -4,6 +4,7 @@ use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CashBookController;
 use App\Http\Controllers\API\SantriController;
+use App\Http\Controllers\API\PasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +19,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
+    // Auth
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 
-    Route::get('/profile', [ProfileController::class, 'show']);
-    Route::post('/update-profile', [ProfileController::class, 'update']);
+    // Profile
+    Route::get('profile', [ProfileController::class, 'show']);
+    Route::post('update-profile', [ProfileController::class, 'update']);
 
-    Route::get('/buku-kas', [CashBookController::class, 'index']);
+    // Cashbook
+    Route::get('buku-kas', [CashBookController::class, 'index']);
 
+    // Change Password
+    Route::patch('password', [PasswordController::class, 'update']);
+
+    // Santri CRUD
     Route::resource('santri', SantriController::class);
 });

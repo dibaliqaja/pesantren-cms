@@ -17,6 +17,6 @@ class ActivityLog extends Model
      * @var array
      */
     protected $fillable = [
-        'subject', 'url', 'method', 'agent', 'user_id'
+        'subject', 'url', 'user_id'
     ];
 }

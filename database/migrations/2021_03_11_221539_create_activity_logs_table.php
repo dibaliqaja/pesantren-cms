@@ -17,8 +17,6 @@ class CreateActivityLogsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('subject');
             $table->string('url');
-            $table->string('method');
-            $table->string('agent')->nullable();
             $table->uuid('user_id')->nullable();
             $table->timestamps();
 

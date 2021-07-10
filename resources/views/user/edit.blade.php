@@ -46,7 +46,7 @@
                 <select class="form-control select2 @error('role') is-invalid @enderror" name="role" required>
                     <option selected disabled>Pilih Role</option>
                     <option value="Administrator" @if ($user->role == 'Administrator') selected @endif @if (Auth::user()->role == 'Pengurus') disabled @endif>Administrator</option>
-                    <option value="Pengurus" @if ($user->role == 'Pengurus') selected @endif>Pengurus</option>
+                    <option value="Pengurus" @if ($user->role == 'Pengurus') selected @endif @if (Auth::user()->role == 'Administrator') disabled @endif>Pengurus</option>
                     <option value="Santri" @if ($user->role == 'Santri') selected @endif @if (Auth::user() == $user) disabled @endif>Santri</option>
                 </select>
 

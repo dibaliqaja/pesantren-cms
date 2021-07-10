@@ -11,6 +11,7 @@
                     <th width="5%">No</th>
                     <th>Date & Time</th>
                     <th>Subject</th>
+                    <th>URL</th>
                     <th>Action By</th>
                 </tr>
             </thead>
@@ -20,6 +21,7 @@
                         <td>{{ $log + $data->firstitem()  }}</td>
                         <td>{{ $result->created_at }} - {{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</td>
                         <td>{{ $result->subject }}</td>
+                        <td><p class="text-warning">{{ $result->url }}</p></td>
                         <td>{{ $result->email }} <br><small class="text-info">{{ $result->name }}</small> </td>
                     </tr>
                 @empty

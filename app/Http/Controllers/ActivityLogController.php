@@ -25,7 +25,7 @@ class ActivityLogController extends Controller
     public function index()
     {
         $data = DB::table('activity_logs')
-                ->select('activity_logs.subject as subject', 'activity_logs.url as url', 'activity_logs.method as method', 'activity_logs.agent as agent', 'activity_logs.created_at as created_at', 'users.email as email', 'santris.name as name')
+                ->select('activity_logs.subject as subject', 'activity_logs.url as url', 'activity_logs.created_at as created_at', 'users.email as email', 'santris.name as name')
                 ->leftJoin('users', 'activity_logs.user_id', '=', 'users.id')
                 ->leftJoin('santris', 'santris.id', '=', 'users.santri_id')
                 ->orderBy('activity_logs.created_at', 'DESC')->paginate(10);
