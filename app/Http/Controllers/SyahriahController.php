@@ -90,11 +90,11 @@ class SyahriahController extends Controller
 
         CashBook::create([
             'date' => now(),
-            'note' => 'Pembayaran Syahriah ' . $santri->santris->name . ' ('. $santri->month . $santri->year .')',
+            'note' => 'Pembayaran Syahriah ' . $santri->santris->name . ' ('. $request->month . $request->year .')',
             'debit' => $request->spp
         ]);
 
-        ActivityLog::addToLog('Pembayaran Syahriah ' . $santri->santris->name . ' ('. $santri->month . $santri->year .')');
+        ActivityLog::addToLog('Pembayaran Syahriah ' . $santri->santris->name . ' ('. $request->month . $request->year .')');
         return redirect()->route('syahriah.index')
             ->with('alert', 'Syahriah berhasil dibayar.');
     }

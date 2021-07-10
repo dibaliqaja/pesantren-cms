@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,7 @@ class PasswordController extends Controller
             $user->password = bcrypt(request('password'));
             $user->save();
 
+            ActivityLog::addToLog('Change Password');
             return redirect()->back()->with('success','Password updated successfully.');
         }
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CashBookController;
 use App\Http\Controllers\API\SantriController;
 use App\Http\Controllers\API\PasswordController;
+use App\Http\Controllers\API\SyahriahController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
     // Change Password
     Route::patch('password', [PasswordController::class, 'update']);
 
+    // Syahriah
+    Route::get('syahriah', [SyahriahController::class, 'index']);
+
     // Santri CRUD
-    Route::resource('santri', SantriController::class);
+    // Route::resource('santri', SantriController::class);
 });

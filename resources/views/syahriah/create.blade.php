@@ -56,7 +56,7 @@
             <label for="year">Nama Santri</label>
             <select class="form-control select2 @error('year') is-invalid @enderror" name="year" required>
                 <option selected disabled>Pilih Tahun</option>
-                @for ($i = 1900; $i <= $now; $i++)
+                @for ($i = $now; $i >= 1900; $i--)
                     <option value="{{ $i }}">{{ $i }}</option>
                 @endfor
             </select>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLog;
 use App\Http\Requests\InMailRequest;
 use App\Models\InMail;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class InMailController extends Controller
             $inmail->create($validatedData);
         }
 
+        ActivityLog::addToLog('Surat Masuk ditambahkan');
         return redirect()->route('surat-masuk.index')
             ->with('alert', 'Surat Masuk baru berhasil ditambahkan.');
     }
@@ -136,6 +138,7 @@ class InMailController extends Controller
             $inmail->update($validatedData);
         }
 
+        ActivityLog::addToLog('Update Data Surat Masuk');
         return redirect()->route('surat-masuk.index')
             ->with('alert', 'Surat Masuk berhasil diupdate.');
     }
@@ -153,6 +156,7 @@ class InMailController extends Controller
         if(File::exists($filePath)) File::delete($filePath);
         $inmail->delete();
 
+        ActivityLog::addToLog('Surat Masuk dihapus');
         return redirect()->route('surat-masuk.index')
             ->with('alert','Data Surat Masuk berhasil dihapus.');
     }

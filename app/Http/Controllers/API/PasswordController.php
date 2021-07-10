@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
 
+use App\Helpers\ActivityLog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
@@ -36,6 +36,7 @@ class PasswordController extends Controller
                 $user->password = bcrypt(request('password'));
                 $user->save();
 
+                ActivityLog::addToLog('Change Password');
                 return response()->json([
                     'status'  => 'success',
                     'message' => 'Password updated successfully'

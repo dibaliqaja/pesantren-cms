@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLog;
 use App\Http\Requests\OutMailRequest;
 use App\Models\OutMail;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class OutMailController extends Controller
             $outmail->create($validatedData);
         }
 
+        ActivityLog::addToLog('Surat Keluar ditambahkan');
         return redirect()->route('surat-keluar.index')
             ->with('alert', 'Surat Keluar baru berhasil ditambahkan.');
     }
@@ -136,6 +138,7 @@ class OutMailController extends Controller
             $outmail->update($validatedData);
         }
 
+        ActivityLog::addToLog('Update Data Surat Keluar');
         return redirect()->route('surat-keluar.index')
             ->with('alert', 'Surat Keluar berhasil diupdate.');
     }
@@ -153,6 +156,7 @@ class OutMailController extends Controller
         if(File::exists($filePath)) File::delete($filePath);
         $outmail->delete();
 
+        ActivityLog::addToLog('Surat Keluar dihapus');
         return redirect()->route('surat-keluar.index')
             ->with('alert','Data Surat Keluar berhasil dihapus.');
     }
