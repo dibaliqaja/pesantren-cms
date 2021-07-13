@@ -5,13 +5,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
 
-use App\Models\Cost;
-use App\Models\Santri;
 use App\Models\Syahriah;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use App\Helpers\ActivityLog;
-use App\Models\CashBook;
 use App\Models\User;
 
 class SyahriahController extends Controller
@@ -30,7 +25,7 @@ class SyahriahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index_history(Request $request)
     {
         try {
             $user      = User::findOrFail(auth()->id());
@@ -59,6 +54,47 @@ class SyahriahController extends Controller
                 'per_page'   => $per_page,
                 'total_data' => $data->total(),
                 'total_page' => ceil($data->total() / $per_page)
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Not Found',
+                'data'    => null
+            ]);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_spp(Request $request)
+    {
+        try {
+            $now  = (int) date('Y');
+            $user = User::findOrFail(auth()->id());
+            $search    = $request->search;
+            $syahriah  = Syahriah::query();
+            $data      = $search
+                            ? $syahriah->select('month', 'year', 'date', 'spp')
+                                ->where('santri_id', $user->santri_id)
+                                ->where('year', intval($search))
+                                ->orderByRaw('FIELD(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")')
+                                ->get()
+                            : $syahriah->select('month', 'year', 'date', 'spp')
+                                ->where('santri_id', $user->santri_id)
+                                ->where('year', $now)
+                                ->orderByRaw('FIELD(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")')
+                                ->get();                          
+
+            $response = [
+                'status'     => 'success',
+                'message'    => 'Syahriah (SPP) query get success',
+                'year'       => $search ? intval($search) : $now,
+                'data'       => $data
             ];
 
             return response()->json($response, 200);

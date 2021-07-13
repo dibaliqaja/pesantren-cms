@@ -36,8 +36,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
     Route::patch('password', [PasswordController::class, 'update']);
 
     // Syahriah
-    Route::get('syahriah', [SyahriahController::class, 'index']);
+    Route::get('syahriah-history', [SyahriahController::class, 'index_history']);
+    Route::get('syahriah-spp', [SyahriahController::class, 'index_spp']);
 
     // Santri CRUD
-    // Route::resource('santri', SantriController::class);
+    Route::resource('santri', SantriController::class);
 });
