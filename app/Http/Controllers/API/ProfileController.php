@@ -28,12 +28,24 @@ class ProfileController extends Controller
      */
     public function show() {
         try {
-            $user = User::with('santris')->find(auth()->id());
+            $profil = Santri::select('santris.*')
+                ->leftJoin('users', 'users.santri_id', '=', 'santris.id')
+                ->where('users.id', auth()->id())
+                ->get()
+                ->map(function($data){
+                    if ($data->photo !== null) {                        
+                        $data->photo = asset('storage/photo/' . $data->photo);
+                        return $data;
+                    } else {
+                        $data->photo = null;
+                        return $data;
+                    }
+                });
 
             return response()->json([
                 'status'  => 'success',
                 'message' => 'Profile query get success',
-                'data'    => $user->santris
+                'data'    => $profil
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -103,6 +115,15 @@ class ProfileController extends Controller
             }
 
             $santri->update($data);
+            tap($santri, function($santri) {
+                if ($santri->photo !== null) {                        
+                    $santri->photo = asset('storage/photo/' . $santri->photo);
+                    return $santri;
+                } else {
+                    $santri->photo = null;
+                    return $santri;
+                }
+            });
 
             $response = [
                 'status'  => 'success',
