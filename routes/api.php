@@ -27,7 +27,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
 
     // Profile
     Route::get('profile', [ProfileController::class, 'show']);
-    Route::post('update-profile', [ProfileController::class, 'update']);
+    Route::post('profile', [ProfileController::class, 'update']);
 
     // Cashbook
     Route::get('buku-kas', [CashBookController::class, 'index']);

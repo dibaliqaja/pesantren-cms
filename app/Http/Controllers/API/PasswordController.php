@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller as Controller;
 use App\Helpers\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class PasswordController extends Controller
 {
@@ -21,14 +22,22 @@ class PasswordController extends Controller
 
     public function update(Request $request)
     {
-        try {
-            $user = $request->user();
+        $user = $request->user();
 
-            $request->validate([
-                'current_password'      => 'required',
-                'password'              => 'required',
-                'password_confirmation' => 'required|same:password'
-            ]);
+        $validator = Validator::make($request->all(), [
+            'current_password'      => 'required|string|min:8',
+            'password'              => 'required|string|min:8',
+            'password_confirmation' => 'required|string|min:8|same:password'
+        ]);
+        
+        try {
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'  => 'error',
+                    'message' => 'Validation Error',
+                    'data'    => $validator->errors(),
+                ], 400);
+            }
 
             $plainPassword = $request->get('current_password');
 
@@ -46,13 +55,13 @@ class PasswordController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Old Password wrong'
-            ]);
+            ], 400);
         } catch (\Throwable $th) {
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Not Found',
                 'data'    => null
-            ]);
+            ], 404);
         }
     }
 }

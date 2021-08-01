@@ -59,7 +59,7 @@ class CashBookController extends Controller
                 'status'  => 'error',
                 'message' => 'Not Found',
                 'data'    => null
-            ]);
+            ], 404);
         }
     }
 }

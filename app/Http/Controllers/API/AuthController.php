@@ -53,7 +53,7 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => 'Not Found',
                 'data' => null
-            ]);
+            ], 404);
         }
     }
 
@@ -65,7 +65,7 @@ class AuthController extends Controller
     public function logout() {
         try {
             ActivityLog::addToLog('User Logout');
-            auth()->logout();
+            auth('api')->logout();
 
             return response()->json([
                 'status' => 'success',
@@ -76,7 +76,7 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => 'Not Found',
                 'data' => null
-            ]);
+            ], 404);
         }
     }
 
@@ -87,13 +87,13 @@ class AuthController extends Controller
      */
     public function refresh() {
         try {
-            return $this->createNewToken("User refresh token success", auth()->refresh());
+            return $this->createNewToken("User refresh token success", auth('api')->refresh());
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Not Found',
                 'data' => null
-            ]);
+            ], 404);
         }
     }
 

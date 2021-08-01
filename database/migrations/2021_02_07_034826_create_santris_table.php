@@ -29,8 +29,8 @@ class CreateSantrisTable extends Migration
             $table->string('father_job');
             $table->string('mother_job');
             $table->string('parent_phone');
-            $table->string('entry_year');
-            $table->string('year_out')->nullable();
+            $table->year('entry_year');
+            $table->year('year_out')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
         });
