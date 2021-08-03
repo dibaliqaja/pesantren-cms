@@ -4,10 +4,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
-
 use App\Models\Syahriah;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Exception;
 
 class SyahriahController extends Controller
 {
@@ -57,12 +57,11 @@ class SyahriahController extends Controller
             ];
 
             return response()->json($response, 200);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
-            ]);
+                'message' => $e->getMessage()                
+            ], 404);
         }
     }
 
@@ -76,19 +75,96 @@ class SyahriahController extends Controller
         try {
             $now  = (int) date('Y');
             $user = User::findOrFail(auth()->id());
-            $search    = $request->search;
-            $syahriah  = Syahriah::query();
-            $data      = $search
-                            ? $syahriah->select('month', 'year', 'date', 'spp')
-                                ->where('santri_id', $user->santri_id)
-                                ->where('year', intval($search))
-                                ->orderByRaw('FIELD(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")')
-                                ->get()
-                            : $syahriah->select('month', 'year', 'date', 'spp')
-                                ->where('santri_id', $user->santri_id)
-                                ->where('year', $now)
-                                ->orderByRaw('FIELD(month, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")')
-                                ->get();                          
+            $search = $request->search;
+                         
+            $jan = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Jan'
+                ])->first();
+
+            $feb = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Feb'
+                ])->first();
+            $mar = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Mar'
+                ])->first();
+            $apr = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Apr'
+                ])->first();
+            $may = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'May'
+                ])->first();
+            $jun = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Jun'
+                ])->first();
+            $jul = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Jul'
+                ])->first();
+            $aug = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Aug'
+                ])->first();
+            $sep = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Sep'
+                ])->first();
+            $oct = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Oct'
+                ])->first();
+            $nov = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Nov'
+                ])->first();
+            $dec = Syahriah::select('date', 'month', 'year', 'spp')
+                ->where([
+                    'santri_id' => $user->santri_id,
+                    'year' => $search ? intval($search) : $now,
+                    'month' => 'Dec'
+                ])->first();
+
+            $data = [
+                'jan' => $jan,
+                'feb' => $feb,
+                'mar' => $mar,
+                'apr' => $apr,
+                'may' => $may,
+                'jun' => $jun,
+                'jul' => $jul,
+                'aug' => $aug,
+                'sep' => $sep,
+                'oct' => $oct,
+                'nov' => $nov,
+                'dec' => $dec
+            ];
 
             $response = [
                 'status'     => 'success',
@@ -98,12 +174,11 @@ class SyahriahController extends Controller
             ];
 
             return response()->json($response, 200);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
-            ]);
+                'message' => $e->getMessage()                
+            ], 404);
         }
     }
 }

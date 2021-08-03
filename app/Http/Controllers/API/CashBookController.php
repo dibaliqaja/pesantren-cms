@@ -5,8 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller as Controller;
 
 use App\Models\CashBook;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class CashBookController extends Controller
 {
@@ -54,11 +58,10 @@ class CashBookController extends Controller
             ];
 
             return response()->json($response, 200);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
+                'status' => 'error',
+                'message' => $e->getMessage()
             ], 404);
         }
     }

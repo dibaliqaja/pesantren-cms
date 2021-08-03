@@ -23,22 +23,18 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
     // Auth
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-
-    // Profile
-    Route::get('profile', [ProfileController::class, 'show']);
-    Route::post('profile', [ProfileController::class, 'update']);
 
     // Cashbook
     Route::get('buku-kas', [CashBookController::class, 'index']);
 
     // Change Password
-    Route::patch('password', [PasswordController::class, 'update']);
+    Route::post('password', [PasswordController::class, 'update']);
+    
+    // Profile
+    Route::get('profile', [ProfileController::class, 'show']);
+    Route::post('profile', [ProfileController::class, 'update']);
 
     // Syahriah
     Route::get('syahriah-history', [SyahriahController::class, 'index_history']);
     Route::get('syahriah-spp', [SyahriahController::class, 'index_spp']);
-
-    // Santri CRUD
-    Route::resource('santri', SantriController::class);
 });

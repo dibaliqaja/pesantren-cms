@@ -5,9 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller as Controller;
 
 use App\Helpers\ActivityLog;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class PasswordController extends Controller
 {
@@ -46,21 +50,21 @@ class PasswordController extends Controller
                 $user->save();
 
                 ActivityLog::addToLog('Change Password');
+
                 return response()->json([
                     'status'  => 'success',
                     'message' => 'Password updated successfully'
-                ]);
+                ], 200);
             }
 
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Old Password wrong'
             ], 400);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
+                'status' => 'error',
+                'message' => $e->getMessage()
             ], 404);
         }
     }

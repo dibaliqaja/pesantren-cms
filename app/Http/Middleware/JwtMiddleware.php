@@ -18,24 +18,17 @@ class JwtMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $request->headers->set('Accept', 'application/json');
+        
         try {
-            auth()->check();
+            auth('api')->check();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['status' => 'Token is Invalid']);
-            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){                
-                $refreshed = JWTAuth::refresh(JWTAuth::getToken());
-                $user = JWTAuth::setToken($refreshed)->toUser();
-                header('Authorization: Bearer ' . $refreshed);
-
-                return response()->json([
-                    'status' => 'Token is Expired',
-                    'user'  => $user,
-                    'new_token' => $refreshed                    
-                ]);
-
-            }else{
-                return response()->json(['status' => 'Authorization Token not found']);
+                return response()->json(['status' => 'Token is Invalid'], 400);
+            } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){                
+                return response()->json(['status' => 'Token is Expired'], 400);
+            } else {
+                return response()->json(['status' => 'Authorization Token not found'], 404);
             }
         }
 

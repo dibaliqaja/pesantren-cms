@@ -5,7 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ActivityLog;
+use Exception;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -35,7 +39,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => 'error',
                     'message' => $validator->errors()
-                ], 422);
+                ], 400);
             }
     
             if (!$token = JWTAuth::attempt($validator->validated())) {
@@ -48,11 +52,10 @@ class AuthController extends Controller
             ActivityLog::addToLog('User Login');
             
             return $this->createNewToken("User login success", $token);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Not Found',
-                'data' => null
+                'message' => $e->getMessage()
             ], 404);
         }
     }
@@ -65,34 +68,17 @@ class AuthController extends Controller
     public function logout() {
         try {
             ActivityLog::addToLog('User Logout');
+
             auth('api')->logout();
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'User successfully signed out'
-            ]);
-        } catch (\Throwable $th) {
+            ], 200);
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Not Found',
-                'data' => null
-            ], 404);
-        }
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh() {
-        try {
-            return $this->createNewToken("User refresh token success", auth('api')->refresh());
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Not Found',
-                'data' => null
+                'message' => $e->getMessage()
             ], 404);
         }
     }
@@ -117,6 +103,6 @@ class AuthController extends Controller
                 'name' => auth()->user()->santris->name,
                 'role' => auth()->user()->role
             ]
-        ]);
+        ], 200);
     }
 }

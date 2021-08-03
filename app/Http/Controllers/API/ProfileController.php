@@ -7,8 +7,12 @@ use App\Helpers\ActivityLog;
 use Illuminate\Http\Request;
 use App\Models\Santri;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class ProfileController extends Controller
 {
@@ -67,13 +71,12 @@ class ProfileController extends Controller
                 'status'  => 'success',
                 'message' => 'Profile query get success',
                 'data'    => $data
-            ]);
-        } catch (\Throwable $th) {
+            ], 200);
+        } catch (Exception $e) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
-            ]);
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 404);
         }
     }
 
@@ -180,12 +183,11 @@ class ProfileController extends Controller
             ActivityLog::addToLog('Profile Santri Updated');
 
             return response()->json($response, 200);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'Not Found',
-                'data'    => null
-            ]);
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 404);
         }
     }
 }
