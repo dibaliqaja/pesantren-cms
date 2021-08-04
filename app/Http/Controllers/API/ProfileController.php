@@ -90,13 +90,15 @@ class ProfileController extends Controller
     {
         $user = User::with('santris')->find(auth()->id());
         $id = $user->santris->id;
+        $id_user = $user->id;
 
         $validator = Validator::make($request->all(), [
+            'email'                  => 'required|string|email|max:255|unique:users,email,'.$id_user,
             'name'                   => 'required|string|min:5',
             'address'                => 'required|string|min:5',
             'birth_place'            => 'required|string|min:5',
             'birth_date'             => 'required|date',
-            'phone'                  => 'required|string|unique:santris,phone,'.$id,
+            'phone'                  => 'required|string|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:santris,phone,'.$id,
             'school_old'             => 'required|string',
             'school_address_old'     => 'required|string',
             'school_current'         => 'required|string',
@@ -105,7 +107,7 @@ class ProfileController extends Controller
             'mother_name'            => 'required|string',
             'father_job'             => 'required|string',
             'mother_job'             => 'required|string',
-            'parent_phone'           => 'required|string|unique:santris,parent_phone,'.$id,
+            'parent_phone'           => 'required|string|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:santris,parent_phone,'.$id,
             'entry_year'             => 'required|digits:4',
             'year_out'               => 'nullable|digits:4',
             'photo'                  => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
@@ -120,8 +122,27 @@ class ProfileController extends Controller
                 ], 400);
             }
 
-            $data = $request->all();
+            $data = [
+                'name'                   => $request->name,
+                'address'                => $request->address,
+                'birth_place'            => $request->birth_place,
+                'birth_date'             => $request->birth_date,
+                'phone'                  => $request->phone,
+                'school_old'             => $request->school_old,
+                'school_address_old'     => $request->school_address_old,
+                'school_current'         => $request->school_current,
+                'school_address_current' => $request->school_address_current,
+                'father_name'            => $request->father_name,
+                'mother_name'            => $request->mother_name,
+                'father_job'             => $request->father_job,
+                'mother_job'             => $request->mother_job,
+                'parent_phone'           => $request->parent_phone,
+                'entry_year'             => $request->entry_year,
+                'year_out'               => $request->year_out
+            ];
+
             $santri = Santri::findOrFail($id);
+            $user = User::findOrFail($id_user);
 
             if ($request->hasFile('photo')) {
                 $filePath = public_path('storage/photo/'.$santri->photo);
@@ -134,11 +155,12 @@ class ProfileController extends Controller
                 $file->move($destinationPath, $input['photo']);
                 $data['photo']  = $input['photo'];
                 $santri->update($data);
+                $user->update(['email' => $request->email]);
             } else {
                 $santri->update($data);
+                $user->update(['email' => $request->email]);
             }
 
-            $santri->update($data);
             tap($santri, function($santri) {
                 $santri->entry_year = (int)$santri->entry_year;
                 $santri->year_out = (int)$santri->year_out;
