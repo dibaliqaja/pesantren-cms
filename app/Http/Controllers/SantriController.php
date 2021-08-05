@@ -52,12 +52,6 @@ class SantriController extends Controller
      */
     public function create()
     {
-        // 202106050001
-        // $year = date('Y');
-        // $new_year = substr($year, -2);
-        // $data_santri = Santri::count();
-        // dd($data_santri+5);
-        // $nis = $new_year.$new_year+1..'.000'.$data_santri+1;
         return view('santri.create');
     }
 

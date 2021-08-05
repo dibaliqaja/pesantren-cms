@@ -22,7 +22,7 @@
                         <td>{{ $result->created_at }} - {{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</td>
                         <td>{{ $result->subject }}</td>
                         <td><p class="text-warning">{{ $result->url }}</p></td>
-                        <td>{{ $result->email }} <br><small class="text-info">{{ $result->name }}</small> </td>
+                        <td>{{ $result->name }} <br><small class="text-info">{{ $result->email }}</small> </td>
                     </tr>
                 @empty
                     <tr>
@@ -32,10 +32,7 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-2 float-left">
-        <span class="ml-3">Data Keseluruhan: <span class="text-primary font-weight-bold">{{ DB::table('activity_logs')->count() }}</span> Aktivitas pengguna telah terdaftar.</span>
-    </div>
-    <div class="mt-3 float-right">
+    <div class="mt-3">
         {{ $data->links() }}
     </div>
 

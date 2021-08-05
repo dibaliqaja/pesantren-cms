@@ -76,8 +76,11 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->santris->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{{ route('change.password') }}" class="dropdown-item has-icon">
+                            {{-- <a href="{{ route('change.password') }}" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Change Password
+                            </a> --}}
+                            <a href="{{ route('santri.show', Auth::user()->santris->id) }}" class="dropdown-item has-icon">
+                                <i class="fas fa-user"></i> Profil
                             </a>
 
                             <div class="dropdown-divider"></div>

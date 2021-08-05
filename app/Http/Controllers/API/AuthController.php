@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 use App\Helpers\ActivityLog;
 use Exception;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -97,7 +94,7 @@ class AuthController extends Controller
             'data' => [
                 'access_token' => $token,
                 'token_type' => 'bearer',
-                'expires_in' => auth('api')->factory()->getTTL() * 60,
+                'expires_in' => auth('api')->factory()->getTTL() * 10080,
                 'santri_id' => auth()->user()->santri_id,
                 'email' => auth()->user()->email,
                 'name' => auth()->user()->santris->name,

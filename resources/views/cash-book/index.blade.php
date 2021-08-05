@@ -41,8 +41,8 @@
                     <th width="5%">No</th>
                     <th>Tanggal</th>
                     <th width="30%">Keterangan</th>
-                    <th>Debit</th>
-                    <th>Kredit</th>
+                    <th>Pemasukan</th>
+                    <th>Pengeluaran</th>
                     <th width="5%">Action</th>
                 </tr>
             </thead>

@@ -44,7 +44,6 @@
                 @forelse ($data as $santri => $result)
                     <tr>
                         <td>{{ $santri + $data->firstitem() }}</td>
-                        {{-- <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->santri_number }}</a></td> --}}
                         <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->name }}</a></td>
                         <td>{{ $result->address }}</td>
                         <td>{{ $result->phone }}</td>

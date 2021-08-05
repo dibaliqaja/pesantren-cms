@@ -7,7 +7,9 @@ use App\Models\Santri;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -111,11 +113,13 @@ class UserController extends Controller
         $request->validate([
             'santri_id' => 'required|exists:santris,id|unique:users,santri_id,'.$id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-            'role'  => 'required|in:Administrator,Pengurus,Santri'
+            'role' => 'required|in:Administrator,Pengurus,Santri',
+            'password' => 'required|string|confirmed|min:8'
         ]);
 
         $user = User::findOrFail($id);
         $validatedData              = $request->all();
+        $validatedData['password']  = Hash::make($request->password);
         $user->update($validatedData);
 
         return redirect()->route('pengguna.index')
@@ -133,7 +137,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         if (auth()->user() == $user) {
             return redirect()->back()
-                ->with('alert','Pengguna sedang login.');
+                ->with('alert','Gagal menghapus, Pengguna sedang login.');
         }
         $user->delete();
 

@@ -36,7 +36,6 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
-                    {{-- <th>Photo</th> --}}
                     <th width="13%">Action</th>
                 </tr>
             </thead>
@@ -44,7 +43,7 @@
                 @forelse ($data as $user => $result)
                     <tr>
                         <td>{{ $user + $data->firstitem() }}</td>
-                        <td>{{ $result->role == 'Administrator' ? 'Administrator' : $result->santris->name }}</td>
+                        <td><a href="{{ route('santri.show', $result->santris->id) }}">{{ $result->santris->name }}</a></td>
                         <td>{{ $result->email }}</td>
                         <td>{{ $result->role }}</td>
                         <td align="center">
