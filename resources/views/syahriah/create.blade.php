@@ -1,5 +1,5 @@
 @extends('layout-cms.home')
-@section('title_page','Rincian Biaya Pendaftar Baru')
+@section('title_page','Bayar Syahriah (SPP)')
 @section('content')
 
     @if (Session::has('error'))
@@ -35,7 +35,8 @@
                 <div class="col-sm">
                     <div class="form-group">
                         <label for="spp">Biaya Syahriah SPP/Bulan</label>
-                        <input type="text" class="form-control" name="spp" value="{{ $cost->spp }}" readonly>
+                        <h5>Rp. {{ number_format($cost->spp, 2, ',', '.') }}</h5>
+                        <input type="text" hidden class="form-control" name="spp" value="{{ $cost->spp }}" readonly>
                     </div>
                 </div>
             </div>

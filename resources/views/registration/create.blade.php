@@ -31,19 +31,22 @@
                 <div class="col-sm">
                     <div class="form-group">
                         <label for="construction">Biaya Pembangunan</label>
-                        <input type="text" class="form-control" name="construction" value="{{ $cost->construction }}" readonly>
+                        <h5>Rp. {{ number_format($cost->construction, 2, ',', '.') }}</h5>
+                        <input type="text" hidden class="form-control" name="construction" value="{{ $cost->construction }}" readonly>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
                         <label for="facilities">Biaya Fasilitas</label>
-                        <input type="text" class="form-control" name="facilities" value="{{ $cost->facilities }}" readonly>
+                        <h5>Rp. {{ number_format($cost->facilities, 2, ',', '.') }}</h5>
+                        <input type="text" hidden class="form-control" name="facilities" value="{{ $cost->facilities }}" readonly>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
                         <label for="wardrobe">Biaya Alokasi Almari</label>
-                        <input type="text" class="form-control" name="wardrobe" value="{{ $cost->wardrobe }}" readonly>
+                        <h5>Rp. {{ number_format($cost->wardrobe, 2, ',', '.') }}</h5>
+                        <input type="text" hidden class="form-control" name="wardrobe" value="{{ $cost->wardrobe }}" readonly>
                     </div>
                 </div>
             </div>
