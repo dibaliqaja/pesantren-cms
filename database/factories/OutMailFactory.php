@@ -24,13 +24,13 @@ class OutMailFactory extends Factory
     {
         return [
             'id'            => Str::uuid(),
-            'mail_number'   => $this->faker->numerify('0##').'/KOMPLEK-TENGAH/XI/'.$this->faker->year($max = 'now'),
+            'mail_number'   => $this->faker->numerify('##').'/LLDJ/X/'.$this->faker->year($max = 'now'),
             'mail_date'     => $this->faker->date('Y-m-d'),
             'note'          => $this->faker->text(50),
             'sender'        => $this->faker->unique()->name(),
             'recipient'     => $this->faker->unique()->name(),
             'record_date'   => $this->faker->date('Y-m-d'),
-            'file_in'       => $this->faker->file(public_path('tmp'), public_path('storage/out-mail'), false),
+            // 'file_in'       => $this->faker->file(public_path('tmp'), public_path('storage/in-mail'), false),
         ];
     }
 }

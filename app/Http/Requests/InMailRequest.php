@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class InMailRequest extends FormRequest
 {
+    public $validator = null;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,5 +35,10 @@ class InMailRequest extends FormRequest
             'record_date'   => 'required|date',
             'file_in'       => 'file|mimes:jpg,jpeg,png,doc,docx,pdf',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $this->validator = $validator;
     }
 }

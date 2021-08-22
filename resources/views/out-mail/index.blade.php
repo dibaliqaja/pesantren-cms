@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Data Surat Keluar')
 @section('content')
 
@@ -15,7 +15,7 @@
         <div class="col-md-8">
             <a href="{{ route('surat-keluar.create') }}" class="btn btn-primary">Tambah Surat Keluar</a><br><br>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <form action="#" class="flex-sm">
                 <div class="input-group">
                     <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
@@ -53,10 +53,18 @@
                         <td>{{ $result->sender }}</td>
                         <td>{{ $result->recipient }}</td>
                         <td>{{ $result->record_date }}</td>
-                        <td><a href="javascript:void(0)" class="text-info" id="file-in" onclick="viewFile('{{ $result->file_in }}')" data-toggle="modal" data-target="#modalFileIn">{{ $result->file_in }}</a></td>
+                        <td>
+                            @if ($result->file_out == null)
+                                <small class="text-warning">No File</small>
+                            @else
+                                <a href="javascript:void(0)" class="text-info" id="file-out" onclick="viewFile('{{ $result->file_out }}')" data-toggle="modal" data-target="#modalFileOut">{{ $result->file_out }}</a>
+                            @endif
+                        </td>
                         <td align="center">
                             <a href="{{ route('surat-keluar.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
+                            @if (Auth::user()->role == 'Administrator')
+                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
+                            @endif
                         </td>
                     </tr>
                 @empty
@@ -103,7 +111,7 @@
     </div>
 
     <!-- Modal File In -->
-    <div class="modal fade" id="modalFileIn" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalFileOut" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="max-width: max-content; width: 690px; height: 610px">
                 <div class="modal-header">

@@ -13,11 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Santri::factory()->create();
-        \App\Models\User::factory()->create();
-        \App\Models\Cost::factory()->create();
-        // \App\Models\CashBook::factory(10)->create();
-        // \App\Models\InMail::factory(1)->create();
-        // \App\Models\OutMail::factory(1)->create();
+        $this->call(SantrisTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(CostsTableSeeder::class);
+        \App\Models\InMail::factory()->create();
+        \App\Models\OutMail::factory()->create();
     }
 }

@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Helpers\ActivityLog;
+use App\Helpers\LogActivity;
 use App\Models\ActivityLog as ModelsActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -51,14 +54,30 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->role == 'Santri') {
-            auth()->logout();
+            Auth::logout();
+            Session::flush();
 
-            $data = ModelsActivityLog::where('user_id', $user->id)->latest()->first();
-            $data->delete();
-
-            return redirect('login')->with('alert', 'User doesn\'t have access rights.');
+            return redirect('login')
+                ->with('alert', 'Pengguna tidak memiliki hak akses pada web.');
         }
 
-        ActivityLog::addToLog('User Login');
+        LogActivity::addToLog('User Login');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        LogActivity::addToLog('User Logout');
+        
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

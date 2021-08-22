@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Biaya')
+@extends('layouts.home')
+@section('title_page','Biaya Pembayaran Pesantren')
 @section('content')
 
     @if (Session::has('alert'))

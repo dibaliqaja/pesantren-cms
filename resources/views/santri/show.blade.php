@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Tampil Data Santri')
 @section('content')
 
@@ -7,7 +7,8 @@
             <div class="col-sm-10">
                 <div class="form-group">
                     @if ($santri->photo != null)            
-                        <img src="{{ '/storage/photo/' . $santri->photo }}" alt="Profile Image Santri" class="rounded-circle" width="200">
+                        <img src="{{ '/storage/photo/' . $santri->photo }}" alt="Profile Image Santri" class="rounded-circle" width="200" 
+                        style="position: relative;width: 200px;height: 200px;overflow: hidden;">
                     @else
                         <img alt="Profile Image Santri" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle" width="200">
                     @endif
@@ -15,7 +16,7 @@
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <a href="{{ route('santri.edit', Auth::user()->santris->id) }}" class="btn btn-info"><i class="fas fa-pen"></i>  &nbsp;&nbsp;Edit Profil</a>
+                    <a href="{{ route('santri.edit', $santri->id) }}" class="btn btn-info"><i class="fas fa-pen"></i>  &nbsp;&nbsp;Edit Profil</a>
                 </div>
             </div>
         </div>

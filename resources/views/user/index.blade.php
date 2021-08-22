@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Data Pengguna')
 @section('content')
 
@@ -15,7 +15,7 @@
         <div class="col-md-8">
             <a href="{{ route('pengguna.create') }}" class="btn btn-primary">Tambah Pengguna</a><br><br>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <form action="#" class="flex-sm">
                 <div class="input-group">
                     <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
@@ -47,16 +47,11 @@
                         <td>{{ $result->email }}</td>
                         <td>{{ $result->role }}</td>
                         <td align="center">
-                            @if (Auth::user()->role == 'Administrator')
-                                <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                            @if (Auth::user()->role == 'Pengurus')
+                                <small class="text-warning">No Action</small>
+                            @else                                
+                                <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>                                
                                 <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
-                            @else
-                                @if ($result->role == 'Administrator')
-                                    No Action
-                                @else
-                                    <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>                                
-                                    <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
-                                @endif
                             @endif
                         </td>
                     </tr>

@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Syahriah Santri (SPP)')
+@extends('layouts.home')
+@section('title_page','Syahriah/SPP Santri')
 @section('content')
 
     @if (Session::has('alert'))
@@ -15,7 +15,7 @@
         <div class="col-md-8">    
             <a href="{{ route('syahriah.create') }}" class="btn btn-primary">Bayar Syahriah (SPP)</a><br><br>                      
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <form action="#" class="flex-sm">
                 <div class="input-group">
                     <select class="form-control select2" name="year" id="year">
@@ -147,9 +147,24 @@
 
     <br><br><br>
     <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-8">                
+                <h4>Riwayat Pembayaran</h4>
+            </div>
+            <div class="col-md-4">
+                <form action="#" class="flex-sm">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary mr-2 rounded-right" type="submit"><i class="fas fa-search"></i></button>
+                            <button onclick="window.location.href='{{ route('syahriah.index') }}'" type="button" class="btn btn-md btn-secondary rounded"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
-                <h4>Riwayat Pembayaran</h4>
                 <thead>
                     <tr align="center">
                         <th width="5%">No</th>

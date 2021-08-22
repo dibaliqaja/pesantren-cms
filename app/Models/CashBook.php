@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \App\Http\Traits\UsesUuid;
 
 class CashBook extends Model
 {
-    use HasFactory;
-    use UsesUuid;
+    use HasFactory, Uuids;
 
-    protected $fillable = ['date', 'note', 'debit', 'credit'];
+    public $incrementing = false;
+    protected $guarded = [];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'debit'     => 'decimal:2',
-        'credit'    => 'decimal:2'
-    ];
+    public function registration_cost()
+    {
+        return $this->belongsTo(RegistrationCost::class, 'registration_cost_id');
+    }
+
+    public function syahriahs()
+    {
+        return $this->belongsTo(Syahriah::class, 'syahriah_id');
+    }
 }

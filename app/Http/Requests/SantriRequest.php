@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use \Illuminate\Contracts\Validation\Validator;
 
 class SantriRequest extends FormRequest
 {
     public $validator = null;
-
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,7 +31,7 @@ class SantriRequest extends FormRequest
             'address'                => 'required|string|min:5',
             'birth_place'            => 'required|string|min:5',
             'birth_date'             => 'required|date',
-            'phone'                  => 'required|string|unique:santris,phone,'.$this->santri,
+            'phone'                  => 'required|string',
             'school_old'             => 'required|string',
             'school_address_old'     => 'required|string',
             'school_current'         => 'required|string',

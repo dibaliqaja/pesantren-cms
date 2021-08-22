@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Data Santri')
 @section('content')
 
@@ -15,7 +15,7 @@
         <div class="col-md-8">
             <a href="{{ route('santri.create') }}" class="btn btn-primary">Tambah Santri</a><br><br>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <form action="#" class="flex-sm">
                 <div class="input-group">
                     <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
@@ -33,7 +33,6 @@
             <thead>
                 <tr align="center">
                     <th width="5%">No</th>
-                    {{-- <th>NIS</th> --}}
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No. HP</th>
@@ -48,8 +47,12 @@
                         <td>{{ $result->address }}</td>
                         <td>{{ $result->phone }}</td>
                         <td align="center">
-                            <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                            <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
+                            @if (Auth::user()->role == 'Pengurus')
+                                <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                            @else                                
+                                <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
+                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
+                            @endif
                         </td>
                     </tr>
                 @empty

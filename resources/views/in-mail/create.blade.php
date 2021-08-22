@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Tambah Data Surat Masuk')
 @section('content')
 

@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Buku Kas')
 @section('content')
 
@@ -16,7 +16,7 @@
             <a href="{{ route('buku-kas.debit.create') }}" class="btn btn-info mr-3">Tambah Pemasukan</a>
             <a href="{{ route('buku-kas.credit.create') }}" class="btn btn-warning">Tambah Pengeluaran</a><br><br>                                        
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-2">
             <form action="#" class="flex-sm">
                 <div class="input-group">
                     <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
@@ -55,10 +55,10 @@
                         <td>Rp. {{ number_format($result->debit, 2, ',', '.') }}</td>
                         <td>Rp. {{ number_format($result->credit, 2, ',', '.') }}</td>
                         <td align="center">
-                            @if (auth()->user()->role == 'Administrator')   
-                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteKasModal"><i class="fas fa-trash"></i></a>
+                            @if (Auth::user()->role == 'Pengurus')
+                                <small class="text-warning">No Action</small>
                             @else
-                                No Action
+                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteKasModal"><i class="fas fa-trash"></i></a>                                
                             @endif
                         </td>
                     </tr>

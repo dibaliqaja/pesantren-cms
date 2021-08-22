@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Rincian Biaya Pendaftar Baru')
+@extends('layouts.home')
+@section('title_page','Bayar Pendaftaran Santri')
 @section('content')
 
     <form action="{{ route('registration.store') }}" method="post">

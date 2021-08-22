@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Data Pembayaran Pendaftaran Santri Baru')
+@extends('layouts.home')
+@section('title_page','Data Pembayaran Pendaftaran Santri')
 @section('content')
 
     @if (Session::has('alert'))
@@ -46,6 +46,9 @@
                         <td>{{ $result->santris->address }}</td>
                         <td align="center">
                             <a href="{{ route('registration.print', $result->id) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-print"></i></a>
+                            @if (Auth::user()->role == 'Administrator')                            
+                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></a>
+                            @endif
                         </td>
                     </tr>
                 @empty
@@ -63,4 +66,45 @@
         {{ $data->links() }}
     </div>
 
+@endsection
+
+@section('modal')
+    <!-- Modal Delete -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form action="javascript:void(0)" id="deleteForm" method="post">
+                @method('DELETE')
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="vcenter">Hapus Data</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah anda yakin?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" onclick="formSubmit()" class="btn btn-danger">Hapus</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        function deleteData(id) {
+            let url = '{{ route("registration.destroy", ":id") }}';
+            url     = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
+        }
+
+        function formSubmit() {
+            $("#deleteForm").submit();
+        }
+    </script>
 @endsection

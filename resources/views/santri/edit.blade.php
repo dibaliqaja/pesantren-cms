@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Edit Data Santri')
 @section('content')
 
@@ -223,7 +223,7 @@
                 </div>
                 <div class="col-sm">
                     @if ($santri->photo != null)            
-                        <img alt="Profile Image Santri" src="{{ '/storage/photo/' . $santri->photo }}" class="rounded-circle m-2" width="100">
+                        <img alt="Profile Image Santri" src="{{ '/storage/photo/' . $santri->photo }}" class="rounded-circle m-2" width="100" onerror="this.src='{{ asset('assets/img/avatar/avatar-1.png') }}'">
                     @else
                         <img alt="Profile Image Santri" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle m-2" width="100">
                     @endif

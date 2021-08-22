@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Dashboard')
 @section('content')
 
@@ -10,10 +10,10 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Banyak Santri</h4>
+                    <h4>Santri</h4>
                 </div>
                 <div class="card-body">
-                    {{ $santri }}
+                    {{ $santris }}
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Surat Masuk</h4>
+                    <h4>Surat Masuk</h4>
                 </div>
                 <div class="card-body">
                     {{ $in_mail }}
@@ -40,7 +40,7 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Surat Keluar</h4>
+                    <h4>Surat Keluar</h4>
                 </div>
                 <div class="card-body">
                     {{ $out_mail }}
@@ -51,14 +51,14 @@
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-info">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-user-cog"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Total Transaksi Kas</h4>
+                    <h4>Pengguna</h4>
                 </div>
                 <div class="card-body">
-                    {{ $cash_book }}
+                    {{ $users }}
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     <h4>Pemasukan Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. {{ number_format($debit, 2, ',', '.') }}
+                    <h5>Rp. {{ number_format($debit, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     <h4>Pengeluaran Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. {{ number_format($credit, 2, ',', '.') }}
+                    <h5>Rp. {{ number_format($credit, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <h4>Saldo Kas</h4>
                 </div>
                 <div class="card-body">
-                    Rp. {{ number_format($balance, 2, ',', '.') }}
+                    <h5>Rp. {{ number_format($balance, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>

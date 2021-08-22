@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Bayar Syahriah (SPP)')
+@extends('layouts.home')
+@section('title_page','Bayar Syahriah/SPP Santri')
 @section('content')
 
     @if (Session::has('error'))

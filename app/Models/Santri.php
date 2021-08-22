@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \App\Http\Traits\UsesUuid;
 
 class Santri extends Model
 {
-    use HasFactory;
-    use UsesUuid;
+    use HasFactory, Uuids;
 
+    public $incrementing = false;
     protected $guarded = [];
 
-    public function users()
+    public function user()
     {
         return $this->hasOne(User::class);
     }
 
-    public function registration()
+    public function registration_cost()
     {
         return $this->hasOne(RegistrationCost::class);
     }

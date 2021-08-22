@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pembayaran Syahriah Santri</title>
+    <title>Bukti Pembayaran Syahriah Santri</title>
 
     <!-- Favicon -->
     <link rel="favicon icon" href="/assets/img/favicon.ico" type="image/x-icon">  
@@ -144,7 +144,7 @@
                     <table>
                         <tr>
                             <td>
-                                Tanggal: {{ date("d F Y", strtotime($data->date)) }}
+                                Tanggal: {{ Carbon\Carbon::parse($data->date)->translatedFormat('d F Y') }}
                             </td>
 
                             <td>

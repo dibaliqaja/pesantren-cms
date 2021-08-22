@@ -1,5 +1,5 @@
-@extends('layout-cms.home')
-@section('title_page','Edit Biaya')
+@extends('layouts.home')
+@section('title_page','Edit Biaya Pembayaran Pesantren')
 @section('content')
 
     <form action="{{ route('biaya.update') }}" method="post">

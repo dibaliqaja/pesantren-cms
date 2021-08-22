@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Edit Data Pengguna')
 @section('content')
 
@@ -44,7 +44,7 @@
                         <label for="role">Role</label>
                         <select class="form-control select2 @error('role') is-invalid @enderror" name="role" required>
                             <option selected disabled>Pilih Role</option>
-                            <option value="Administrator" @if ($user->role == 'Administrator') selected @endif @if (auth()->user()->role == 'Pengurus') disabled @endif>Administrator</option>
+                            <option value="Administrator" @if ($user->role == 'Administrator') selected @endif>Administrator</option>
                             <option value="Pengurus" @if ($user->role == 'Pengurus') selected @endif @if (auth()->user()->role == 'Administrator' && auth()->user() == $user) disabled @endif>Pengurus</option>
                             <option value="Santri" @if ($user->role == 'Santri') selected @endif @if (auth()->user() == $user) disabled @endif>Santri</option>
                         </select>

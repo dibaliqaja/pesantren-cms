@@ -1,4 +1,4 @@
-@extends('layout-cms.home')
+@extends('layouts.home')
 @section('title_page','Edit Data Surat Keluar')
 @section('content')
 
@@ -85,11 +85,11 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="file_in">File</label>
-                        <input type="file" class="form-control-file @error('file_in') is-invalid @enderror" name="file_in" value="{{ old('file_in') }}">
+                        <label for="file_out">File</label>
+                        <input type="file" class="form-control-file @error('file_out') is-invalid @enderror" name="file_out" value="{{ old('file_out') }}">
                         <span class="text-small text-danger font-italic">File extension only: jpg, jpeg, png, doc, docx, pdf</span>
             
-                        @error('file_in')
+                        @error('file_out')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

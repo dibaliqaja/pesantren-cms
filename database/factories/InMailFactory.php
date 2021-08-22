@@ -30,7 +30,7 @@ class InMailFactory extends Factory
             'sender'        => $this->faker->unique()->name(),
             'recipient'     => $this->faker->unique()->name(),
             'record_date'   => $this->faker->date('Y-m-d'),
-            'file_in'       => $this->faker->file(public_path('tmp'), public_path('storage/in-mail'), false),
+            // 'file_in'       => $this->faker->file(public_path('tmp'), public_path('storage/in-mail'), false),
         ];
     }
 }
