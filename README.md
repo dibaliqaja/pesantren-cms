@@ -10,11 +10,11 @@
     </a>
     &nbsp;
     <a href="https://github.com/dibaliqaja/pesantren-cms/releases" target="_blank">
-        <img src="https://img.shields.io/badge/version-v0.0.1-red?style=for-the-badge&logo=none" alt="system version" />
+        <img src="https://img.shields.io/badge/version-v1.0.0-red?style=for-the-badge&logo=none" alt="system version" />
     </a>
     &nbsp;
     <a href="https://github.com/dibaliqaja/pesantren-cms" target="_blank">
-        <img src="https://img.shields.io/badge/Laravel-9.5.1-fb503b?style=for-the-badge&logo=laravel" alt="laravel version" />
+        <img src="https://img.shields.io/badge/Laravel-9.11.0-fb503b?style=for-the-badge&logo=laravel" alt="laravel version" />
     </a>
     &nbsp;
     <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" />
