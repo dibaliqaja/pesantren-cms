@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // \App\Models\Santri::factory()->create();
+        // \App\Models\User::factory()->create();
         $this->call(SantrisTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CostsTableSeeder::class);
