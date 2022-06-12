@@ -6,8 +6,8 @@
   <title>Login &mdash; Sistem Manajemen Pondok Pesantren</title>
 
   <!-- Favicon -->
-  <link rel="favicon icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">  
-  
+  <link rel="favicon icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
+
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
@@ -60,12 +60,12 @@
                             </span>
                         @enderror
                     </div>
- 
+
                   <div class="form-group">
                     <div class="d-block">
                     	<label for="password" class="control-label">Password</label>
                     </div>
-                    <div class="input-group" id="show_hide_password">   
+                    <div class="input-group" id="show_hide_password">
                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                       <div class="input-group-append">
                         <div class="input-group-text">
@@ -91,7 +91,7 @@
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; Pondok Pesantren Ash-Shomadiyah Komplek Tengah
+              Copyright &copy; 2022 <div class="bullet"></div> Pondok Pesantren Ash-Shomadiyah Komplek Tengah
             </div>
           </div>
         </div>

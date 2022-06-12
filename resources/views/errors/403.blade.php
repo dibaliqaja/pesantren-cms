@@ -6,7 +6,7 @@
   <title>403 &mdash; Sistem Manajemen Pondok Pesantren</title>
 
   <!-- Favicon -->
-  <link rel="favicon icon" href="/assets/img/favicon.ico" type="image/x-icon">  
+  <link rel="favicon icon" href="/assets/img/favicon.ico" type="image/x-icon">
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="simple-footer mt-5">
-          Copyright &copy; 2021 <div class="bullet"></div> Pondok Pesantren Ash-Shomadiyah Komplek Tengah | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+          Copyright &copy; 2022 <div class="bullet"></div> Pondok Pesantren Ash-Shomadiyah Komplek Tengah | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
         </div>
       </div>
     </section>
