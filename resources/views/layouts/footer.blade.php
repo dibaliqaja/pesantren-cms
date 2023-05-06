@@ -1,6 +1,10 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; 2022 <div class="bullet"></div> Pondok Pesantren Ash-Shomadiyah Komplek Tengah | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+        Copyright &copy; {{ date('Y') }} 
+        <div class="bullet"></div> Pondok Pesantren Ash-Shomadiyah Komplek Tengah | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+    </div>
+    <div class="footer-right">
+        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
     </div>
 </footer>
 </div>
