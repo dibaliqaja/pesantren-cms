@@ -36,7 +36,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => 'error',
                     'message' => $validator->errors()
-                ], 400);
+                ], 422);
             }
     
             if (!$token = JWTAuth::attempt($validator->validated())) {

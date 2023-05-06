@@ -1,15 +1,13 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Tests\Feature\Cms;
 
-use App\Models\User;
 use Database\Seeders\SantrisTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class LoginTest extends TestCase
+class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
