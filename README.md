@@ -14,7 +14,7 @@
     </a>
     &nbsp;
     <a href="https://github.com/dibaliqaja/pesantren-cms" target="_blank">
-        <img src="https://img.shields.io/badge/Laravel-9.11.0-fb503b?style=for-the-badge&logo=laravel" alt="laravel version" />
+        <img src="https://img.shields.io/badge/Laravel-v10.9.0-fb503b?style=for-the-badge&logo=laravel" alt="laravel version" />
     </a>
     &nbsp;
     <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" />
@@ -43,7 +43,7 @@
 Note: User Role is <b>Administrator, Pengurus, Santri</b>
 
 ### ⚙️ Requirements
-- PHP >= 8.0
+- PHP >= 8.1
 - BCMath PHP Extension
 - Ctype PHP Extension
 - cURL PHP Extension
@@ -113,7 +113,7 @@ php artisan serve
 ### User Credentials in Seeder
 | #        | Administrator    | Pengurus            | Santri              |
 | -------- | ---------------- | ------------------- | ------------------- |
-| Email    | admin@ponpes.com | pengurus@ponpes.com | pengurus@ponpes.com |
+| Email    | admin@ponpes.com | pengurus@ponpes.com | santri@ponpes.com |
 | Password | password         | password            | password            |
 
 ## License
