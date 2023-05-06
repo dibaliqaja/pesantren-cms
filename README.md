@@ -110,6 +110,12 @@ php artisan db:seed
 php artisan serve
 ```
 
+Note:
+- Add jwt secret for API
+```bash
+php artisan jwt:secret
+```
+
 ### User Credentials in Seeder
 | #        | Administrator    | Pengurus            | Santri              |
 | -------- | ---------------- | ------------------- | ------------------- |
