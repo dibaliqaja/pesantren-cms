@@ -13,7 +13,7 @@
                     <h4>Santri</h4>
                 </div>
                 <div class="card-body">
-                    {{ $santris }}
+                    {{ $santri }}
                 </div>
             </div>
         </div>

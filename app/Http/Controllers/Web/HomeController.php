@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Santri;
+use App\Models\User;
+use App\Models\InMail;
+use App\Models\OutMail;
+use App\Models\CashBook;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -21,19 +25,25 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param  App\Models\Santri    $santri
+     * @param  App\Models\User      $user
+     * @param  App\Models\InMail    $inMail
+     * @param  App\Models\OutMail   $outMail
+     * @param  App\Models\CashBook  $cashBook
+     * @return Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Santri $santri, User $user, InMail $inMail, OutMail $outMail, CashBook $cashBook)
     {
-        $santris    = DB::table('santris')->count();
-        $users      = DB::table('users')->count();
-        $in_mail    = DB::table('in_mails')->count();
-        $out_mail   = DB::table('out_mails')->count();
-        $debit      = DB::table('cash_books')->sum(DB::raw('debit'));
-        $credit     = DB::table('cash_books')->sum(DB::raw('credit'));
-        $balance    = DB::table('cash_books')->sum(DB::raw('debit - credit'));
+        $santri   = $santri->count();
+        $users    = $user->count();
+        $in_mail  = $inMail->count();
+        $out_mail = $outMail->count();
+        $debit    = $cashBook->sum('debit');
+        $credit   = $cashBook->sum('credit');
+        $balance  = $cashBook->sum(DB::raw('debit - credit'));
         
         return view('home', compact(
-            'santris',
+            'santri',
             'users',
             'debit',
             'credit',
