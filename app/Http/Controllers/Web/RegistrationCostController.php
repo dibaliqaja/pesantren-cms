@@ -8,7 +8,7 @@ use App\Models\CashBook;
 use App\Models\Cost;
 use App\Models\RegistrationCost;
 use App\Models\Santri;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
