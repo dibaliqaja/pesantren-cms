@@ -1,10 +1,10 @@
 <!-- [in English README](https://github.com) 🇬🇧 👈 SOON -->
 
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="224px"/><br/>
+  <img src="https://raw.githubusercontent.com/dibaliqaja/pesantren-cms/master/public/assets/img/ponpes.svg" width="130px"/><br/>
   Pesantren CMS
 </h1>
-<p align="center">Pesantren CMS merupakan Sistem Manajemen Pondok Pesantren</p>
+<p align="center">Sistem Manajemen Pondok Pesantren</p>
 
 <p align="center">
     <a href="https://github.com/dibaliqaja/pesantren-cms/actions/workflows/laravel.yml" target="_blank">
@@ -24,8 +24,7 @@
 
 ### Fitur
 - Admin Panel
-  - Login
-  - Logout
+  - Autentikasi Administrator dan Pengurus
   - Manajamen Data Santri
   - Manajemen Data Pengguna Sistem
   - Manajemen Biaya Pembayaran Pesantren
@@ -35,36 +34,23 @@
   - Manajemen Surat Masuk dan Surat Keluar
   - Log Aktivitas Pengguna Sistem
 - API
-  - Login
-  - Logout
+  - Autentikasi Santri
   - Buku Kas
   - Ubah Password
-  - Update Profil
-  - Histori Pembayaran Syahriah (SPP)
+  - Edit Profil Santri
+  - Histori Pembayaran Syahriah (SPP) Santri
 
-Catatan: <i>User Role</i> yang ada: <b>Administrator, Pengurus, Santri</b>
+Catatan: <i>Role</i> Pengguna yang terdaftar pada aplikasi: <b>Administrator, Pengurus, Santri</b>
 
-<!-- ### ⚙️ Requirements
-- PHP >= 8.1
-- BCMath PHP Extension
-- Ctype PHP Extension
-- cURL PHP Extension
-- DOM PHP Extension
-- Fileinfo PHP Extension
-- JSON PHP Extension
-- Mbstring PHP Extension
-- OpenSSL PHP Extension
-- PCRE PHP Extension
-- PDO PHP Extension
-- Tokenizer PHP Extension
-- XML PHP Extension -->
+### ⚙️ PHP 8.1
+- PesantrenCMS membutuhkan versi PHP minimal 8.1.
 
 ### ⚡️ Instalasi
 1. Kloning repo ini dengan menjalankan perintah berikut pada terminal
 ```bash
 git clone https://github.com/dibaliqaja/pesantren-cms.git
 ```
-2. Setelah selesai, pindah ke direktori aplikasi
+2. Setelah proses kloning repo selesai, pindah ke direktori aplikasi
 ```bash
 cd pesantren-cms
 ```
@@ -80,7 +66,7 @@ npm install
 ```bash
 cp .env.example .env
 ```
-6. Buat kunci enkripsi aplikasi dengan perintah berikut
+6. Enkripsi aplikasi dengan perintah berikut
 ```bash
 php artisan key:generate
 ```
@@ -117,6 +103,9 @@ Catatan:
 ```bash
 php artisan jwt:secret
 ```
+
+Untuk melihat implementasi API dapat dilihat pada repositori berikut
+> https://github.com/dibaliqaja/pesantren-app
 
 ### Kredensial Pengguna yang ada pada Seeder
 | #        | Administrator    | Pengurus            | Santri              |
