@@ -8,7 +8,7 @@
     <title>Bukti Pembayaran Pendaftaran Santri Baru</title>
 
     <!-- Favicon -->
-    <link rel="favicon icon" href="/assets/img/favicon.ico" type="image/x-icon">  
+    <link rel="favicon icon" href="/assets/img/ponpes.ico" type="image/x-icon">  
 
     <!-- Invoice styling -->
     <style>
@@ -127,12 +127,12 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ponpes_logo.png'))) }}" alt="logo" style="width: 50%; max-width: 70px" />
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ponpes.png'))) }}" alt="logo" style="width: 60px;" />
                             </td>
 
                             <td>
-                                <h3><b>Pondok Pesantren Ash-Shomadiyah Komplek Tengah</b><br>
-                                Jalan KH. Agus Salim No. 44 Makamagung, Tuban (62313)</h3>
+                                <h3><b>Pondok Pesantren</b><br>
+                                Jalan Raya Daendels, Kasembon, Madani (62000)</h3>
                             </td>
                         </tr>
                     </table>
@@ -143,7 +143,7 @@
                 <td colspan="2">
                     <table>
                         <tr>
-                            <td>
+                            <td style="width: 40%;">
                                 Tanggal: {{ Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
                             </td>
 

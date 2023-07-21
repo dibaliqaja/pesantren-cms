@@ -1,0 +1,91 @@
+:root {
+  --primary: #0E9467;
+  --primary-hover: #12b47e;
+  --primary-active: #0a7854;
+  --white: #fefeff;
+}
+
+.card.card-primary {
+  border-top: 2px solid var(--primary);
+}
+a {
+  color: var(--primary);
+}
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+.btn-primary, .btn-primary.disabled {
+  box-shadow: 0 2px 6px var(--primary-hover);
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-primary:active, .btn-primary:hover, .btn-primary.disabled:active, .btn-primary.disabled:hover {
+  background-color: var(--primary-active) !important;
+}
+.btn-primary:focus, .btn-primary.disabled:focus {
+  background-color: var(--primary-active) !important;
+}
+.btn-primary:focus:active, .btn-primary.disabled:focus:active {
+  background-color: var(--primary-active) !important;
+}
+.form-control:focus, .input-group-text:focus, .custom-select:focus, .custom-file-label:focus {
+  background-color: var(--white);
+  border-color: var(--primary-hover);
+}
+.navbar-bg {
+  background-color: var(--primary) !important;
+}
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.main-sidebar .sidebar-menu li.active a {
+  color: var(--primary);
+}
+body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu > li.active > a:before {
+  background-color: var(--primary);
+}
+.select2-container.select2-container--open .select2-selection--single {
+  border-color: var(--primary-hover);
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice, .select2-container--default .select2-results__option[aria-selected=true], .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--primary);
+}
+.select2-container.select2-container--focus .select2-selection--multiple, .select2-container.select2-container--focus .select2-selection--single {
+  border-color: var(--primary-hover);
+}
+.pricing .pricing-title {
+  color: var(--primary);
+}
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
+  color: var(--primary);
+}
+.text-primary, .text-primary-all *, .text-primary-all *:before, .text-primary-all *:after {
+  color: var(--primary) !important;
+}
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before, .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--primary) !important;
+}
+.main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
+  color: var(--primary);
+}
+a.dropdown-item:focus, a.dropdown-item:active, a.dropdown-item.active {
+  background-color: var(--primary);
+}
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+  box-shadow: 0 4px 8px var(--primary-hover);
+  background-color: var(--primary);
+}
+.page-item.active .page-link {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+.page-item .page-link {
+  color: var(--primary);
+}
+.page-link:hover {
+  background-color: var(--primary);
+}
+.page-link:not(:disabled):not(.disabled):hover {
+  color: var(--white);
+}
