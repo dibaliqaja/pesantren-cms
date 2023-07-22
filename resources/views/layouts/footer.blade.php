@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <div class="footer-left">
         Copyright &copy; {{ date('Y') }} 
-        <div class="bullet"></div> Pondok Pesantren | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+        <div class="bullet"></div> Pondok Pesantren | Made by <a href="https://github.com/dibaliqaja" target="_blank">Muhammad Iqbal</a> | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
     </div>
     <div class="footer-right">
         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})

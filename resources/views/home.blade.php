@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-danger">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-users"></i>
             </div>
             <div class="card-wrap">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-envelope"></i>
             </div>
             <div class="card-wrap">
@@ -35,7 +35,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-success">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-envelope-open-text"></i>
             </div>
             <div class="card-wrap">
@@ -50,7 +50,7 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-info">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-user-cog"></i>
             </div>
             <div class="card-wrap">
@@ -65,7 +65,7 @@
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-2">
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="card-wrap">
@@ -80,7 +80,7 @@
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-2">
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="card-wrap">
@@ -95,7 +95,7 @@
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-2">
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon bg-primary-2">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="card-wrap">

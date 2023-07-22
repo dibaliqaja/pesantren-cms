@@ -63,7 +63,7 @@
                                 <img alt="image" src="{{ asset('storage/photo/' . Auth::user()->santris->photo) }}" class="rounded-circle mr-1"                            
                                 style="position: relative;width: 30px;height: 30px;overflow: hidden;">
                             @endif
-                            <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->santris->name }}</div>
+                            <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->santris->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('santri.show', Auth::user()->santris->id) }}" class="dropdown-item has-icon">
