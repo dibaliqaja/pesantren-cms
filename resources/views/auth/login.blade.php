@@ -1,3 +1,13 @@
+<!-- 
+  PROJECT: Pesantren CMS
+  AUTHOR: Muhammad Iqbal (dibaliqaja)
+  GITHUB: https://github.com/dibaliqaja/pesantren-cms
+  TWITTER: https://twitter.com/dibaliqaja
+  FACEBOOK: https://facebook.com/dibaliqaja
+  LINKEDIN: https://linkedin.com/in/dibaliqaja
+  EMAIL: dibaliqaja@gmail.com
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,6 +103,7 @@
   <script src="{{ asset('assets/modules/tooltip.js') }}"></script>
   <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+  <script src="{{ asset('assets/js/digital-sign.js') }}"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
   <!-- Page Specific JS File -->

@@ -1,3 +1,13 @@
+<!-- 
+  PROJECT: Pesantren CMS
+  AUTHOR: Muhammad Iqbal (dibaliqaja)
+  GITHUB: https://github.com/dibaliqaja/pesantren-cms
+  TWITTER: https://twitter.com/dibaliqaja
+  FACEBOOK: https://facebook.com/dibaliqaja
+  LINKEDIN: https://linkedin.com/in/dibaliqaja
+  EMAIL: dibaliqaja@gmail.com
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
