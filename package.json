@@ -10,8 +10,8 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^1.12",
-        "bootstrap": "^4.6.0",
+        "axios": "^1.6",
+        "bootstrap": "^5.0.0",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
